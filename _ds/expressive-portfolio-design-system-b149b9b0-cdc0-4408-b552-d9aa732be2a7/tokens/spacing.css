@@ -1,0 +1,35 @@
+/* Expressive Portfolio — Spacing, radius, shadow */
+:root{
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+
+  --r-sm: 8px;    /* media inside body */
+  --r-md: 12px;   /* small images / gallery */
+  --r-lg: 16px;   /* portrait, section imagery */
+  --r-xl: 24px;   /* project cards */
+  --r-pill: 999px;
+
+  /* Shadows — restrained, warm, low */
+  --shadow-sm: 0 1px 2px rgba(17,17,17,0.04);
+  --shadow-md: 0 4px 20px rgba(17,17,17,0.05);
+  --shadow-lift: 0 4px 12px rgba(17,17,17,0.15);
+
+  /* Content widths */
+  --w-reading: 720px;    /* case-study text column */
+  --w-media: 1100px;     /* case-study image breakout */
+  --w-page: 1240px;      /* home / about container */
+  --gutter: 32px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(.2,.7,.2,1); /* @kind other */
+  --dur-fast: 140ms;                     /* @kind other */
+  --dur-med: 240ms;                      /* @kind other */
+}

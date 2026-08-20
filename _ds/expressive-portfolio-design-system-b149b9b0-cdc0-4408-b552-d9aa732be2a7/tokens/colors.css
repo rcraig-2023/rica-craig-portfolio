@@ -1,0 +1,28 @@
+/* Expressive Portfolio — Color tokens */
+:root{
+  /* Base */
+  --canvas: #FFFDF6;           /* warm cream background */
+  --surface-card: #FFFFFF;     /* card / container lift */
+  --ink-1: #111111;            /* primary text, buttons */
+  --ink-2: #595959;            /* secondary text, metadata */
+  --ink-3: #8A8A85;            /* tertiary / disabled */
+  --border-soft: #E5E2D9;      /* warm hairline */
+  --border-strong: #111111;    /* used on outlined pills */
+
+  /* Accent tints (project card backgrounds) */
+  --tint-purple: #A8B2FF;
+  --tint-yellow: #FFD166;
+  --tint-green:  #06D6A0;
+  --tint-orange: #FF6B2C;
+  --tint-lilac:  #C9B8FF;
+  --tint-blue:   #B9E3FF;
+
+  /* Semantic */
+  --text-primary: var(--ink-1);
+  --text-secondary: var(--ink-2);
+  --text-inverse: var(--canvas);
+  --surface-page: var(--canvas);
+  --surface-elevated: var(--surface-card);
+  --divider: var(--border-soft);
+  --focus-ring: color-mix(in oklch, var(--ink-1) 40%, transparent);
+}
