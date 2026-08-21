@@ -1,127 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
-  <link rel="stylesheet" href="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/tokens/fonts.css">
-  <link rel="stylesheet" href="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/tokens/colors.css">
-  <link rel="stylesheet" href="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/tokens/typography.css">
-  <link rel="stylesheet" href="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/tokens/spacing.css">
-  <link rel="stylesheet" href="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/tokens/base.css">
-  <link rel="stylesheet" href="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/styles.css">
-  <script src="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/_ds_bundle.js"></script>
-  <script src="./image-slot.js"></script>
-  <script>
-  (function initVideoSlot(){
-    var DB = 'ithVideoDB', STORE = 'files', KEY = 'ith-final-video';
-    function openDB(){
-      return new Promise(function(res, rej){
-        var r = indexedDB.open(DB, 1);
-        r.onupgradeneeded = function(){ r.result.createObjectStore(STORE); };
-        r.onsuccess = function(){ res(r.result); };
-        r.onerror = function(){ rej(r.error); };
-      });
-    }
-    function put(blob){
-      return openDB().then(function(db){
-        return new Promise(function(res, rej){
-          var tx = db.transaction(STORE, 'readwrite');
-          tx.objectStore(STORE).put(blob, KEY);
-          tx.oncomplete = res; tx.onerror = function(){ rej(tx.error); };
-        });
-      });
-    }
-    function get(){
-      return openDB().then(function(db){
-        return new Promise(function(res, rej){
-          var tx = db.transaction(STORE, 'readonly');
-          var q = tx.objectStore(STORE).get(KEY);
-          q.onsuccess = function(){ res(q.result); };
-          q.onerror = function(){ rej(q.error); };
-        });
-      });
-    }
-    function getEls(){
-      return {
-        slots: document.querySelectorAll('#ith-video-slot, [id="ith-video-slot"]'),
-        videos: document.querySelectorAll('#ith-final-video-el, [id="ith-final-video-el"]'),
-        inputs: document.querySelectorAll('#ith-final-video-input, [id="ith-final-video-input"]')
-      };
-    }
-    function apply(src){
-      var els = getEls();
-      console.log('[video-slot] apply — slot count:', els.slots.length, 'video count:', els.videos.length);
-      els.videos.forEach(function(v){
-        v.removeAttribute('poster');
-        v.setAttribute('src', src);
-        v.load();
-        v.onloadedmetadata = function(){ console.log('[video-slot] loadedmetadata', v.duration, v.videoWidth+'x'+v.videoHeight); };
-        v.onerror = function(){ console.warn('[video-slot] video error', v.error && v.error.code, v.error && v.error.message); };
-        v.oncanplay = function(){ console.log('[video-slot] canplay'); };
-      });
-      els.slots.forEach(function(s){ s.classList.add('has-video'); });
-    }
-    function handle(file){
-      if(!file){ return; }
-      if(!file.type || !file.type.startsWith('video/')){ console.warn('[video-slot] not a video:', file.type); return; }
-      console.log('[video-slot] accepted', file.name, file.type, file.size);
-      apply(URL.createObjectURL(file));
-      put(file).then(function(){ console.log('[video-slot] saved to IndexedDB'); })
-               .catch(function(e){ console.warn('[video-slot] IndexedDB save failed:', e); });
-    }
-    function restore(){
-      get().then(function(blob){ if(blob) apply(URL.createObjectURL(blob)); }).catch(function(){});
-    }
-    document.addEventListener('click', function(e){
-      var replace = e.target.closest && e.target.closest('#ith-final-video-replace');
-      if(replace){
-        e.preventDefault();
-        var input = document.getElementById('ith-final-video-input');
-        if(input) input.click();
-        return;
-      }
-      var hint = e.target.closest && e.target.closest('#ith-video-slot .drop-hint');
-      if(!hint) return;
-      if(e.target.tagName !== 'INPUT'){
-        var input2 = document.getElementById('ith-final-video-input');
-        if(input2){ e.preventDefault(); input2.click(); }
-      }
-    });
-    document.addEventListener('change', function(e){
-      if(e.target && e.target.id === 'ith-final-video-input'){
-        handle(e.target.files && e.target.files[0]);
-      }
-    });
-    document.addEventListener('dragover', function(e){
-      var slot = e.target.closest && e.target.closest('#ith-video-slot');
-      if(slot){ e.preventDefault(); slot.classList.add('drag'); }
-    });
-    document.addEventListener('dragleave', function(e){
-      var slot = e.target.closest && e.target.closest('#ith-video-slot');
-      if(slot){ slot.classList.remove('drag'); }
-    });
-    document.addEventListener('drop', function(e){
-      var slot = e.target.closest && e.target.closest('#ith-video-slot');
-      if(!slot) return;
-      e.preventDefault(); slot.classList.remove('drag');
-      var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-      if(f) handle(f);
-    });
-    var tries = 0;
-    (function waitAndRestore(){
-      if(getEls().videos.length){ restore(); return; }
-      if(++tries < 60) setTimeout(waitAndRestore, 100);
-    })();
-  })();
-  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ithaca Hunt — Case Study by Rica Craig</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg:#FFFFFF; --band:#FCE8ED; --band-2:#F9DDE4;
@@ -242,8 +127,8 @@
     .foot-strip .heart{ color:var(--rose); }
     .foot-strip a:hover{ color:var(--rose); }
   </style>
-</helmet>
-
+</head>
+<body>
 <nav class="nav">
   <a href="Portfolio.dc.html" class="brand">Rica <span class="flourish">✿</span> <em>Craig</em></a>
   <div class="navlinks">
@@ -262,7 +147,7 @@
     <a href="Portfolio.dc.html#work">Back to work →</a>
   </div>
   <div class="hero-media">
-    <div class="hero-single"><image-slot id="ith-hero" shape="rect" fit="cover" placeholder="Drop the phone-over-waterfall hero image" src="uploads/Ithaca%20Hunt%20App/Screen_Shot_2022-12-15_at_2.48.29_AM.png"></image-slot></div>
+    <div class="hero-single"><img src="uploads/Ithaca%20Hunt%20App/Screen_Shot_2022-12-15_at_2.48.29_AM.png" alt="Drop the phone-over-waterfall hero image" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
   </div>
 </section>
 
@@ -330,7 +215,7 @@
 
 <section class="band">
   <div class="single wide">
-    <div class="media wide"><image-slot id="ith-affinity" shape="rect" fit="contain" placeholder="Drop the Group 11 Affinity Diagram export (Figma)"></image-slot></div>
+    <div class="media wide"><div style="width:100%;height:100%;min-height:200px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#888;font-size:13px;">Drop the Group 11 Affinity Diagram export (Figma)</div></div>
   </div>
   <div class="caption">Group 11 Affinity Diagram — <a style="border-bottom:1px solid var(--rose);color:var(--rose)" href="https://www.figma.com/board/RJJys2hE2wwDUNwCWWUoBt/Group-11-Affinity-Diagram?node-id=0-1" target="_blank" rel="noopener">open in Figma ↗</a></div>
 </section>
@@ -364,7 +249,7 @@
 
 <section class="band">
   <div class="single wide">
-    <div class="media wide"><image-slot id="ith-persona" shape="rect" fit="contain" placeholder="Drop the User Persona export (Figma)"></image-slot></div>
+    <div class="media wide"><div style="width:100%;height:100%;min-height:200px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#888;font-size:13px;">Drop the User Persona export (Figma)</div></div>
   </div>
   <div class="caption">Jess, 18 — Cornell freshman from outside Ithaca. <a style="border-bottom:1px solid var(--rose);color:var(--rose)" href="https://www.figma.com/board/Xbd9nEiWy4q1rfgLq8Evuu/User-Persona?node-id=0-1" target="_blank" rel="noopener">open in Figma ↗</a></div>
 </section>
@@ -377,7 +262,7 @@
 
 <section class="band">
   <div class="single wide">
-    <div class="media wide"><image-slot id="ith-brainstorm" shape="rect" fit="contain" placeholder="Brainstorming sketches" src="uploads/Ithaca%20Hunt%20App/final_design_sketch_part_1.png"></image-slot></div>
+    <div class="media wide"><img src="uploads/Ithaca%20Hunt%20App/final_design_sketch_part_1.png" alt="Brainstorming sketches" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
   </div>
   <div class="caption">Fifteen ideas per teammate, sketched together.</div>
 </section>
@@ -390,7 +275,7 @@
 
 <section class="band">
   <div class="single wide">
-    <div class="media wide"><image-slot id="ith-uisketch" shape="rect" fit="contain" placeholder="Hand-drawn UI sketch" src="uploads/Ithaca%20Hunt%20App/final_design_sketch_part_2.png"></image-slot></div>
+    <div class="media wide"><img src="uploads/Ithaca%20Hunt%20App/final_design_sketch_part_2.png" alt="Hand-drawn UI sketch" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
   </div>
   <div class="caption">First-pass UI — welcome, interests, recommendations, event detail, review, and profile.</div>
 </section>
@@ -403,22 +288,22 @@
 
 <div class="task">
   <div class="label"><span class="n">01</span>Find a unique experience in nature <span style="color:var(--ink-3)">— Persona's Goal: Gain unique experiences in college</span></div>
-  <div class="band"><div class="single wide"><div class="media storyboard"><image-slot id="ith-sb1" shape="rect" fit="contain" placeholder="Storyboard 1 — unique experience in nature" src="uploads/Ithaca%20Hunt%20App/Screen_Shot_2022-10-28_at_12.41.00_AM.png"></image-slot></div></div></div>
+  <div class="band"><div class="single wide"><div class="media storyboard"><img src="uploads/Ithaca%20Hunt%20App/Screen_Shot_2022-10-28_at_12.41.00_AM.png" alt="Storyboard 1 — unique experience in nature" style="width:100%;height:100%;object-fit:contain;display:block;"></div></div></div>
 </div>
 
 <div class="task">
   <div class="label"><span class="n">02</span>Add a recommended event to their calendar <span style="color:var(--ink-3)">— Persona's Goal: Staying on top of her academics</span></div>
-  <div class="band"><div class="single wide"><div class="media storyboard"><image-slot id="ith-sb2" shape="rect" fit="contain" placeholder="Storyboard 2 — add to calendar" src="uploads/Ithaca%20Hunt%20App/Untitled.jpeg"></image-slot></div></div></div>
+  <div class="band"><div class="single wide"><div class="media storyboard"><img src="uploads/Ithaca%20Hunt%20App/Untitled.jpeg" alt="Storyboard 2 — add to calendar" style="width:100%;height:100%;object-fit:contain;display:block;"></div></div></div>
 </div>
 
 <div class="task">
   <div class="label"><span class="n">03</span>Message someone who is interested in similar events <span style="color:var(--ink-3)">— Goal: Make more friends with similar interests</span></div>
-  <div class="band"><div class="single wide"><div class="media storyboard"><image-slot id="ith-sb3" shape="rect" fit="contain" placeholder="Drop Storyboard 3 — messaging"></image-slot></div></div></div>
+  <div class="band"><div class="single wide"><div class="media storyboard"><div style="width:100%;height:100%;min-height:200px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#888;font-size:13px;">Drop Storyboard 3 — messaging</div></div></div></div>
 </div>
 
 <div class="task">
   <div class="label"><span class="n">04</span>Find a bus route to a recommended event <span style="color:var(--ink-3)">— Persona's Goal: Navigate around Ithaca</span></div>
-  <div class="band"><div class="single wide"><div class="media storyboard"><image-slot id="ith-sb4" shape="rect" fit="contain" placeholder="Storyboard 4 — bus route" src="uploads/Ithaca%20Hunt%20App/48FF0506-11DB-4921-9E54-4AC271E56735.jpeg"></image-slot></div></div></div>
+  <div class="band"><div class="single wide"><div class="media storyboard"><img src="uploads/Ithaca%20Hunt%20App/48FF0506-11DB-4921-9E54-4AC271E56735.jpeg" alt="Storyboard 4 — bus route" style="width:100%;height:100%;object-fit:contain;display:block;"></div></div></div>
 </div>
 
 <!-- PROTOTYPE DRAFT -->
@@ -429,7 +314,7 @@
 
 <section class="band">
   <div class="single wide">
-    <div class="media wide"><image-slot id="ith-draft" shape="rect" fit="contain" placeholder="Prototype draft — Figma wireframes" src="uploads/Ithaca%20Hunt%20App/Screen_Shot_2022-10-28_at_12.33.53_AM.png"></image-slot></div>
+    <div class="media wide"><img src="uploads/Ithaca%20Hunt%20App/Screen_Shot_2022-10-28_at_12.33.53_AM.png" alt="Prototype draft — Figma wireframes" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
   </div>
   <div class="caption">Draft #2 (after feedback) — <a style="border-bottom:1px solid var(--rose);color:var(--rose)" href="https://www.figma.com/file/KvG5HNEAUszbMOxW8kYmAT?kind=file&amp;node-id=274%3A5880" target="_blank" rel="noopener">open in Figma ↗</a></div>
 </section>
@@ -441,27 +326,27 @@
 
 <div class="final-grid">
   <div class="final-cell">
-    <div class="media"><image-slot id="ith-fp1" shape="rect" fit="cover" placeholder="Select Your Interests" src="uploads/Ithaca%20Hunt%20App/Untitled%201.jpeg"></image-slot></div>
+    <div class="media"><img src="uploads/Ithaca%20Hunt%20App/Untitled%201.jpeg" alt="Select Your Interests" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
     <div class="cap">A user can select as many interests as they want.</div>
   </div>
   <div class="final-cell">
-    <div class="media"><image-slot id="ith-fp2" shape="rect" fit="cover" placeholder="For You" src="./5fb3c425-8716-477b-a81c-3817f8dd6f16-msr1d4d9-44pf.jpeg"></image-slot></div>
+    <div class="media"><img src="./5fb3c425-8716-477b-a81c-3817f8dd6f16-msr1d4d9-44pf.jpeg" alt="For You" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
     <div class="cap">This page shows the user event recommendations based on the user's interests, weekly academic schedule, and grade level.</div>
   </div>
   <div class="final-cell">
-    <div class="media"><image-slot id="ith-fp3" shape="rect" fit="cover" placeholder="Reviews" src="uploads/Ithaca%20Hunt%20App/14EED6D9-AD91-4254-8216-D9F990B15DCA.jpeg"></image-slot></div>
+    <div class="media"><img src="uploads/Ithaca%20Hunt%20App/14EED6D9-AD91-4254-8216-D9F990B15DCA.jpeg" alt="Reviews" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
     <div class="cap">The user can read the most helpful reviews left by past attendees of the events.</div>
   </div>
   <div class="final-cell">
-    <div class="media"><image-slot id="ith-fp4" shape="rect" fit="cover" placeholder="You submitted your review" src="uploads/Ithaca%20Hunt%20App/302B5894-CE06-4E8F-958B-CA4F7B368A7F.jpeg"></image-slot></div>
+    <div class="media"><img src="uploads/Ithaca%20Hunt%20App/302B5894-CE06-4E8F-958B-CA4F7B368A7F.jpeg" alt="You submitted your review" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
     <div class="cap">The user earns points and badges by writing reviews for the events they attended.</div>
   </div>
   <div class="final-cell">
-    <div class="media"><image-slot id="ith-fp5" shape="rect" fit="cover" placeholder="Profile — Jess" src="uploads/Ithaca%20Hunt%20App/2AE166A1-7546-44B0-ADC1-DBCD06728320.jpeg"></image-slot></div>
+    <div class="media"><img src="uploads/Ithaca%20Hunt%20App/2AE166A1-7546-44B0-ADC1-DBCD06728320.jpeg" alt="Profile — Jess" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
     <div class="cap">The user can view their profile with features such as their achievements, interested events, interests, and friends.</div>
   </div>
   <div class="final-cell">
-    <div class="media"><image-slot id="ith-fp6" shape="rect" fit="cover" placeholder="My Chats" src="uploads/Ithaca%20Hunt%20App/5FB3C425-8716-477B-A81C-3817F8DD6F16.jpeg"></image-slot></div>
+    <div class="media"><img src="uploads/Ithaca%20Hunt%20App/5FB3C425-8716-477B-A81C-3817F8DD6F16.jpeg" alt="My Chats" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
     <div class="cap">The user can view their chat history.</div>
   </div>
 </div>
@@ -492,7 +377,5 @@
   <div>© 2026 Rica Craig — Design Engineer &amp; Product Strategist</div>
   <div>Made with <span class="heart">✿</span> in New York</div>
 </footer>
-
-</x-dc>
 </body>
 </html>

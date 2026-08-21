@@ -1,24 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
-  <link rel="stylesheet" href="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/tokens/fonts.css">
-  <link rel="stylesheet" href="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/tokens/colors.css">
-  <link rel="stylesheet" href="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/tokens/typography.css">
-  <link rel="stylesheet" href="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/tokens/spacing.css">
-  <link rel="stylesheet" href="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/tokens/base.css">
-  <link rel="stylesheet" href="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/styles.css">
-  <script src="_ds/expressive-portfolio-design-system-b149b9b0-cdc0-4408-b552-d9aa732be2a7/_ds_bundle.js"></script>
-  <script src="./image-slot.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rica Craig — Designer, Product Thinker & Builder</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,700&amp;family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     /* --- Rica — LoveShackFancy foundation + vibrant nature accents --- */
     :root{
@@ -66,7 +54,7 @@
         linear-gradient(180deg, #FCEBEF 0%, #FDF5F1 40%, #E9F1F8 100%);
       filter: saturate(1.02);
     }
-    x-dc, .nav, .hero, .work, .toolkit, .contact, .foot-strip { position: relative; z-index: 1; }
+    x-dc, .hero, .work, .toolkit, .contact, .foot-strip { position: relative; z-index: 1; }
     body{
       margin:0;
       font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
@@ -85,12 +73,15 @@
 
     /* ============ NAV ============ */
     .nav{
-      position: sticky; top:0; z-index:30;
+      position: sticky; top:0; z-index: 100;
       display:grid; grid-template-columns: 1fr auto 1fr; align-items:center;
-      padding: 22px 44px;
-      background: color-mix(in oklab, var(--canvas) 88%, transparent);
-      backdrop-filter: saturate(1.2) blur(8px);
-      border-bottom: 1px solid var(--border-soft);
+      padding: 20px 44px;
+      background: color-mix(in oklab, var(--canvas) 92%, var(--blush) 8%);
+      backdrop-filter: blur(20px) saturate(1.3);
+      -webkit-backdrop-filter: blur(20px) saturate(1.3);
+      border-bottom: 1px solid rgba(192, 92, 135, 0.12);
+      box-shadow: 0 4px 20px -4px rgba(42, 47, 74, 0.05);
+      transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
     }
     .brand{ font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; font-weight:600; font-size:22px; letter-spacing:-0.005em; color: var(--ink-1); }
     .brand em{ font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; font-style: italic; font-weight:500; color: var(--rose); }
@@ -117,13 +108,6 @@
       max-width: 1360px; margin: 0 auto;
       isolation: isolate;
     }
-
-    .hero-eyebrow{
-      display:flex; justify-content:space-between; align-items:center;
-      margin-bottom: 44px; color: var(--ink-2);
-      position:relative; z-index:2;
-    }
-    .hero-eyebrow .dotsep{ width:4px; height:4px; border-radius:99px; background: var(--rose); display:inline-block; margin: 0 10px; vertical-align: middle; }
 
     .display{
       font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
@@ -152,34 +136,39 @@
     .display .flower-swap svg{ width:100%; height:100%; overflow: visible; display:block; }
 
     .hero-under{
-      margin-top: 64px;
-      display:grid; grid-template-columns: 0.85fr 1.15fr; gap: 72px; align-items: start;
+      margin-top: 56px;
+      display:grid; grid-template-columns: 280px 1fr; gap: 56px; align-items: start;
       position:relative; z-index:2;
     }
-    @media (max-width: 900px){ .hero-under{ grid-template-columns: 1fr; gap: 44px; } }
+    @media (max-width: 900px){
+      .hero-under{ grid-template-columns: 1fr; gap: 36px; }
+      .portrait-frame{ max-width: 260px; }
+    }
 
     .portrait-frame{
       position: relative;
       width: 100%;
+      max-width: 280px;
       aspect-ratio: 4 / 5;
-      border-radius: 16px;
-      box-shadow: 0 30px 60px -30px rgba(42,47,74,.28), 0 8px 20px -12px rgba(42,47,74,.16);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 24px 48px -20px rgba(42,47,74,.22), 0 6px 16px -8px rgba(42,47,74,.12);
+      border: 1px solid rgba(42,47,74,.08);
+      background: var(--canvas);
     }
-    .portrait-frame image-slot{
-      position: absolute; inset: 0;
-      border-radius: 16px;
+    .portrait-frame img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
-    .portrait-frame .caption{
-      position: absolute; left: 0; right: 0; bottom: -46px;
-      text-align: center; font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; font-style: italic; color: var(--ink-2); font-size: 15px;
-    }
-    .portrait-frame .caption .dot{ display:inline-block; width:5px; height:5px; border-radius:99px; background: var(--rose); margin: 0 8px; vertical-align: middle; }
-    .bio-col{ display:flex; flex-direction: column; gap: 28px; }
+    .bio-col{ display:flex; flex-direction: column; gap: 24px; max-width: 680px; }
     .hero-bio{
       font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-      font-weight: 500; font-size: clamp(20px, 2vw, 26px);
-      line-height: 1.5; color: var(--ink-1); letter-spacing: .002em;
-      max-width: 640px; text-wrap: pretty;
+      font-weight: 500; font-size: clamp(18px, 1.85vw, 22px);
+      line-height: 1.55; color: var(--ink-1); letter-spacing: .002em;
+      margin: 0;
+      text-wrap: pretty;
     }
     .hero-bio .name{ font-style: italic; color: var(--rose); }
     .hero-bio .u{
@@ -189,10 +178,10 @@
     .hero-bio .link{ border-bottom: 1.5px solid var(--rose); padding-bottom:1px; }
     .hero-bio .link:hover{ color: var(--rose); }
 
-    .hero-meta{ display:flex; flex-direction: column; padding-top: 6px; }
+    .hero-meta{ display:flex; flex-direction: column; padding-top: 4px; }
     .hero-meta .row{
       display:grid; grid-template-columns: 82px 1fr; gap: 18px;
-      padding: 12px 0; border-top: 1px solid var(--border-soft); align-items: baseline;
+      padding: 11px 0; border-top: 1px solid var(--border-soft); align-items: baseline;
     }
     .hero-meta .row:last-child{ border-bottom: 1px solid var(--border-soft); }
     .hero-meta .k{ color: var(--ink-3); font-family:"IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing:.1em; text-transform: uppercase; }
@@ -233,31 +222,6 @@
       box-shadow: 0 32px 60px -30px rgba(42,47,74,.28), 0 8px 20px -12px rgba(42,47,74,.14);
     }
     .card.tall{ min-height: 520px; padding: 40px; }
-
-    /* Hover affordance — corner "View" chip fades in */
-    .card .view-chip{
-      position:absolute; top:20px; right:20px;
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 14px 8px 16px; border-radius: 99px;
-      background: rgba(255,255,255,.9);
-      backdrop-filter: blur(6px);
-      font-family:"IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
-      color: var(--ink-1) !important;
-      opacity: 0; transform: translateY(-4px) scale(.96);
-      transition: opacity 220ms ease, transform 220ms ease;
-      pointer-events: none;
-      border: 1px solid rgba(42,47,74,.1);
-      z-index: 4;
-      box-shadow: 0 6px 18px -8px rgba(42,47,74,.25);
-    }
-    .card .view-chip .mini-arrow{
-      width:20px; height:20px; border-radius: 99px; background: var(--ink-1);
-      display:inline-flex; align-items:center; justify-content:center;
-    }
-    .card .view-chip .mini-arrow svg{ display:block; }
-    .card:hover .view-chip{ opacity: 1; transform: translateY(0) scale(1); }
-    .card .head .meta{ transition: opacity 220ms ease; }
-    .card:hover .head .meta{ opacity: 0; }
 
     .card .head{ display:flex; justify-content: space-between; align-items:flex-start; gap: 20px; }
     .card .head .no{ font-family:"IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
@@ -406,8 +370,8 @@
     /* Reusable inline floral sprig svg (in stylesheet as background-image would be heavier — inline SVG per instance is fine) */
     .rose-sprig-mini{ width: 44px; height: 44px; }
   </style>
-</helmet>
-
+</head>
+<body>
 <!-- ================ NAV ================ -->
 <nav class="nav">
   <div class="brand">Rica <span class="flourish">✿</span> <em>Craig</em></div>
@@ -417,7 +381,7 @@
     <a href="#toolkit">Toolkit</a>
     <a href="#contact">Contact</a>
   </div>
-  <div class="navright"><span class="serif-i">Portfolio, 2026</span></div>
+  <div class="navright"></div>
 </nav>
 
 <!-- ================ HERO ================ -->
@@ -490,28 +454,22 @@
     </svg>
   </div>
 
-  <div class="hero-eyebrow mono">
-    <span><span style="color:var(--rose)">✿</span> Portfolio<span class="dotsep"></span>Design, Product &amp; Engineering</span>
-    <span>New York, NY<span class="dotsep"></span>2020 – Present</span>
-  </div>
-
   <h1 class="display">
     <span class="row">
-      <span class="word-serif">Des</span><span class="flower-swap" role="img" aria-label="i"><svg viewBox="0 0 44 140" preserveAspectRatio="xMidYMax meet"><defs><radialGradient id="tittle-outer" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#FFF3F6"></stop><stop offset=".6" stop-color="#F4B2C3"></stop><stop offset="1" stop-color="#C25A80"></stop></radialGradient><radialGradient id="tittle-inner" cx=".5" cy=".5" r=".55"><stop offset="0" stop-color="#FCE2E8"></stop><stop offset=".6" stop-color="#E890A9"></stop><stop offset="1" stop-color="#8B2C57"></stop></radialGradient></defs><g><line x1="22" y1="38" x2="22" y2="136" stroke="#5E7A54" stroke-width="4.5" stroke-linecap="round"></line><path d="M22 92 C 12 90, 6 80, 6 68 C 14 70, 22 80, 22 92 Z" fill="#7EA073" stroke="#4F6947" stroke-width=".7"></path><path d="M22 92 C 12 90, 8 82, 8 72" fill="none" stroke="#4F6947" stroke-width=".6"></path><path d="M22 108 C 32 106, 38 96, 38 84 C 30 86, 22 96, 22 108 Z" fill="#7EA073" stroke="#4F6947" stroke-width=".7"></path><path d="M22 108 C 32 106, 36 98, 36 88" fill="none" stroke="#4F6947" stroke-width=".6"></path><g transform="translate(22 20)"><path d="M-16 4 C -22 -6, -20 -18, -10 -20 C -2 -22, 4 -22, 10 -20 C 20 -18, 22 -6, 16 4 C 10 10, -10 10, -16 4 Z" fill="url(#tittle-outer)" opacity=".95"></path><path d="M-10 2 C -14 -6, -12 -14, -6 -14 C 2 -14, 8 -10, 8 -4 C 8 2, 2 6, -4 6 C -8 6, -10 2, -10 2 Z" fill="url(#tittle-inner)"></path><path d="M-4 -4 C -6 -8, -2 -12, 2 -10 C 6 -8, 6 -4, 2 -2 C -2 0, -4 -2, -4 -4 Z" fill="#8B2C57"></path><circle cx="0" cy="-4" r="1.6" fill="#5E1C3B"></circle></g></g></svg></span><span class="word-serif">gn</span>
+      <span class="word-serif">Intent</span>
     </span>
     <span class="row">
-      <span class="word-sans">&amp; Build.</span>
+      <span class="word-sans">&amp; Del</span><span class="flower-swap" role="img" aria-label="i"><svg viewBox="0 0 44 140" preserveAspectRatio="xMidYMax meet"><defs><radialGradient id="tittle-outer" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#FFF3F6"></stop><stop offset=".6" stop-color="#F4B2C3"></stop><stop offset="1" stop-color="#C25A80"></stop></radialGradient><radialGradient id="tittle-inner" cx=".5" cy=".5" r=".55"><stop offset="0" stop-color="#FCE2E8"></stop><stop offset=".6" stop-color="#E890A9"></stop><stop offset="1" stop-color="#8B2C57"></stop></radialGradient></defs><g><line x1="22" y1="38" x2="22" y2="136" stroke="#5E7A54" stroke-width="4.5" stroke-linecap="round"></line><path d="M22 92 C 12 90, 6 80, 6 68 C 14 70, 22 80, 22 92 Z" fill="#7EA073" stroke="#4F6947" stroke-width=".7"></path><path d="M22 92 C 12 90, 8 82, 8 72" fill="none" stroke="#4F6947" stroke-width=".6"></path><path d="M22 108 C 32 106, 38 96, 38 84 C 30 86, 22 96, 22 108 Z" fill="#7EA073" stroke="#4F6947" stroke-width=".7"></path><path d="M22 108 C 32 106, 36 98, 36 88" fill="none" stroke="#4F6947" stroke-width=".6"></path><g transform="translate(22 20)"><path d="M-16 4 C -22 -6, -20 -18, -10 -20 C -2 -22, 4 -22, 10 -20 C 20 -18, 22 -6, 16 4 C 10 10, -10 10, -16 4 Z" fill="url(#tittle-outer)" opacity=".95"></path><path d="M-10 2 C -14 -6, -12 -14, -6 -14 C 2 -14, 8 -10, 8 -4 C 8 2, 2 6, -4 6 C -8 6, -10 2, -10 2 Z" fill="url(#tittle-inner)"></path><path d="M-4 -4 C -6 -8, -2 -12, 2 -10 C 6 -8, 6 -4, 2 -2 C -2 0, -4 -2, -4 -4 Z" fill="#8B2C57"></path><circle cx="0" cy="-4" r="1.6" fill="#5E1C3B"></circle></g></g></svg></span><span class="word-sans">ght.</span>
     </span>
   </h1>
 
   <div class="hero-under" id="about">
     <div class="portrait-frame">
-      <image-slot id="rica-portrait" shape="rounded" radius="16" fit="cover" placeholder="Drop a vertical portrait"></image-slot>
-      <div class="caption">Rica Craig <span class="dot"></span> Brooklyn, 2026</div>
+      <img src="rica_craig_profile_photo.jpg" alt="Rica Craig" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;">
     </div>
     <div class="bio-col">
       <p class="hero-bio">
-        Hi, I am <span class="name">Rica</span> — a <span class="u">designer</span>, <span class="u">product thinker</span>, and <span class="u">builder</span> with a foundation in Information Science from Cornell. I'm currently a <a class="link" href="#work">Platform Engineer at IBM</a>, translating user and business requirements into custom client demos. I move between design, product, and code — and I'm open to product designer, APM, and design-engineer roles.
+        Hi, I am <span class="name">Rica</span> — a <span class="u">designer</span>, <span class="u">product thinker</span>, and <span class="u">builder</span> with a foundation in Information Science from Cornell. Currently a <a class="link" href="#work">Platform Engineer at IBM</a>, I translate user and business requirements into intuitive product experiences across AI, data platforms, and automation workflows. I move seamlessly between UX research, product design, and code to craft thoughtful, human-centered digital solutions.
       </p>
       <div class="hero-meta">
         <div class="row"><span class="k">Now</span><span class="v">Platform Engineer, Financial Services Market — IBM</span></div>
@@ -534,7 +492,6 @@
 
     <!-- FULL / hero card: DoSomething (most recent) -->
     <a class="card tall full fill-rose" href="Case-DoSomething.dc.html" id="p-dosth">
-      <span class="view-chip" style="border-color: #C05C8733;"><span class="mini-arrow"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span> View case study</span>
       <div class="head">
         <div class="no">Case Study 01 · DoSomething.org</div>
         <div class="meta">Product &amp; Eng<br>Internship · Solo Design</div>
@@ -566,7 +523,6 @@
 
     <!-- Card 2: Ithaca Hunt -->
     <a class="card fill-emerald" href="Case-Ithaca.dc.html" id="p-ithaca">
-      <span class="view-chip" style="border-color: #4E8F6C33;"><span class="mini-arrow"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span> View case study</span>
       <div class="head">
         <div class="no">Case Study 02 · Ithaca Hunt</div>
         <div class="meta">Fall 2022 · Cornell<br>Figma · Miro · 4-person team</div>
@@ -599,7 +555,6 @@
 
     <!-- Card 3: Less Than Three -->
     <a class="card fill-violet" href="Case-LessThanThree.dc.html" id="p-l3">
-      <span class="view-chip" style="border-color: #8571AF33;"><span class="mini-arrow"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span> View case study</span>
       <div class="head">
         <div class="no">Case Study 03 · Less Than Three</div>
         <div class="meta">Cornell A Cappella<br>Design + Front-end</div>
@@ -632,52 +587,54 @@
   </div>
 </section>
 
-<!-- ================ TOOLKIT (condensed marquee) ================ -->
+<!-- ================ TOOLKIT ================ -->
 <section class="toolkit" id="toolkit">
   <div class="toolkit-head">
     <h3>A cross-functional <em>toolkit</em>.</h3>
-    <p>UX, research, engineering &amp; AI — the disciplines I move between when shipping.</p>
+    <p>Product, UX research, AI systems &amp; engineering — the disciplines I move between when shipping.</p>
   </div>
   <div class="toolkit-grid">
     <div class="tk-cat c-design">
-      <div class="cat-head"><span class="cat-dot"></span><span class="cat-name">Design</span></div>
+      <div class="cat-head"><span class="cat-dot"></span><span class="cat-name">Product &amp; Design</span></div>
       <ul>
-        <li>Human-Centered Design</li>
-        <li>Interaction Design</li>
+        <li>Interaction &amp; Visual Design</li>
+        <li>Low to High-Fidelity Prototyping</li>
+        <li>Design Systems &amp; Storyboarding</li>
         <li>Information Architecture</li>
-        <li>Design Systems</li>
-        <li>Rapid Prototyping</li>
         <li>Figma</li>
       </ul>
     </div>
     <div class="tk-cat c-research">
-      <div class="cat-head"><span class="cat-dot"></span><span class="cat-name">Research</span></div>
+      <div class="cat-head"><span class="cat-dot"></span><span class="cat-name">Research &amp; Strategy</span></div>
       <ul>
-        <li>User Interviews</li>
-        <li>Usability Testing</li>
-        <li>Affinity Diagramming</li>
-        <li>Card Sorting</li>
-        <li>Synthesis &amp; Insights</li>
-      </ul>
-    </div>
-    <div class="tk-cat c-eng">
-      <div class="cat-head"><span class="cat-dot"></span><span class="cat-name">Engineering</span></div>
-      <ul>
-        <li>HTML / CSS / JavaScript</li>
-        <li>Python</li>
-        <li>FastAPI</li>
-        <li>GitHub &amp; Version Control</li>
-        <li>Responsive Front-end</li>
+        <li>User Interviews &amp; Usability Testing</li>
+        <li>Affinity Diagramming &amp; Personas</li>
+        <li>Card Sorting &amp; Information Flow</li>
+        <li>Insights Synthesis &amp; Metrics</li>
+        <li>Competitive Analysis</li>
+        <li>Data Visualization</li>
       </ul>
     </div>
     <div class="tk-cat c-ai">
-      <div class="cat-head"><span class="cat-dot"></span><span class="cat-name">AI &amp; Tools</span></div>
+      <div class="cat-head"><span class="cat-dot"></span><span class="cat-name">AI &amp; Systems</span></div>
       <ul>
         <li>LLM Integration</li>
-        <li>Multi-Agent Flows</li>
+        <li>RAG Pipelines</li>
+        <li>Multi-Tool Agents</li>
+        <li>Generative AI Tools</li>
         <li>Claude Code</li>
-        <li>GitHub Copilot</li>
-        <li>Lovable</li>
+        <li>Vibecoding</li>
+      </ul>
+    </div>
+    <div class="tk-cat c-eng">
+      <div class="cat-head"><span class="cat-dot"></span><span class="cat-name">Engineering &amp; Tools</span></div>
+      <ul>
+        <li>HTML, CSS &amp; JavaScript</li>
+        <li>Python &amp; R</li>
+        <li>SQL</li>
+        <li>GitHub &amp; Version Control</li>
+        <li>Agile</li>
+        <li>monday.com</li>
       </ul>
     </div>
   </div>
@@ -692,8 +649,7 @@
     <span class="arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
   </a>
   <div class="links">
-    <a href="https://www.linkedin.com/in/rica-c-581874186/">LinkedIn ↗</a>
-    <a href="mailto:ri.craigrica@gmail.com">Email ↗</a>
+    <a href="https://www.linkedin.com/in/rica-c-581874186/" target="_blank" rel="noopener">LinkedIn ↗</a>
   </div>
 </section>
 
@@ -701,7 +657,5 @@
   <div>© 2026 Rica Craig — Designer, Product Thinker &amp; Builder</div>
   <div>Made with <span class="heart">✿</span> in New York</div>
 </footer>
-
-</x-dc>
 </body>
 </html>
