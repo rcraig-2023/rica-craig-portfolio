@@ -70,6 +70,16 @@
       font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .08em;
       text-transform: uppercase; color: var(--ink-3);
     }
+    .resume-pill{
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 5px 12px; border-radius: 99px; background: var(--ink);
+      color: #FFF !important; font-family: "IBM Plex Mono", monospace; font-size: 10.5px;
+      letter-spacing: .08em; text-transform: uppercase; font-weight: 600;
+      transition: all 160ms ease; text-decoration: none !important;
+    }
+    .resume-pill:hover{
+      background: var(--rose); color: #FFF !important; transform: translateY(-1px);
+    }
 
     /* ============ HERO BANNER ============ */
     .hero-band{
@@ -393,7 +403,9 @@
     <a href="index.html#toolkit">Toolkit</a>
     <a href="index.html#contact">Contact</a>
   </div>
-  <div class="navright">Case Study 01 · 2023</div>
+  <div class="navright">
+    <a href="Rica_Craig_Resume.pdf" target="_blank" rel="noopener" class="resume-pill">Resume ↗</a>
+  </div>
 </nav>
 
 <!-- ================ HERO MEDIA ================ -->

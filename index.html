@@ -102,10 +102,11 @@
     .navright .heart{ color: var(--rose); }
 
     /* ============ HERO ============ */
+    /* ============ HERO ============ */
     .hero{
       position:relative;
       padding: 84px 44px 96px;
-      max-width: 1360px; margin: 0 auto;
+      max-width: 1200px; margin: 0 auto;
       isolation: isolate;
     }
 
@@ -137,8 +138,9 @@
 
     .hero-under{
       margin-top: 56px;
-      display:grid; grid-template-columns: 280px 1fr; gap: 56px; align-items: start;
+      display:grid; grid-template-columns: 280px 1fr; gap: 48px; align-items: start;
       position:relative; z-index:2;
+      width: 100%;
     }
     @media (max-width: 900px){
       .hero-under{ grid-template-columns: 1fr; gap: 36px; }
@@ -162,7 +164,7 @@
       object-fit: cover;
       display: block;
     }
-    .bio-col{ display:flex; flex-direction: column; gap: 24px; max-width: 680px; }
+    .bio-col{ display:flex; flex-direction: column; gap: 24px; width: 100%; max-width: 100%; }
     .hero-bio{
       font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
       font-weight: 500; font-size: clamp(18px, 1.85vw, 22px);
@@ -178,9 +180,9 @@
     .hero-bio .link{ border-bottom: 1.5px solid var(--rose); padding-bottom:1px; }
     .hero-bio .link:hover{ color: var(--rose); }
 
-    .hero-meta{ display:flex; flex-direction: column; padding-top: 4px; }
+    .hero-meta{ display:flex; flex-direction: column; padding-top: 4px; width: 100%; }
     .hero-meta .row{
-      display:grid; grid-template-columns: 82px 1fr; gap: 18px;
+      display:grid; grid-template-columns: 88px 1fr; gap: 18px;
       padding: 11px 0; border-top: 1px solid var(--border-soft); align-items: baseline;
     }
     .hero-meta .row:last-child{ border-bottom: 1px solid var(--border-soft); }
@@ -188,7 +190,7 @@
     .hero-meta .v{ color: var(--ink-1); font-size: 14.5px; line-height: 1.4; }
 
     /* ============ WORK — elevated as focal point ============ */
-    .work{ padding: 8px 44px 100px; max-width: 1360px; margin: 0 auto; position:relative; }
+    .work{ padding: 8px 44px 100px; max-width: 1200px; margin: 0 auto; position:relative; }
     .work-head{
       display:flex; justify-content: space-between; align-items:flex-end;
       margin-bottom: 40px; gap: 40px;
@@ -205,10 +207,11 @@
     .work-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .work-grid .full{ grid-column: 1 / -1; }
 
+    /* ============ WORK CARDS ============ */
     .card{
       position:relative; overflow: hidden;
       border-radius: 26px;
-      padding: 30px;
+      padding: 34px 34px 30px;
       min-height: 400px;
       display:flex; flex-direction: column; justify-content: space-between; gap: 22px;
       transition: transform 260ms cubic-bezier(.2,.7,.2,1), box-shadow 260ms cubic-bezier(.2,.7,.2,1), border-color 220ms ease;
@@ -237,7 +240,9 @@
 
     .card .desc{ font-size: 14.5px; max-width: 46ch; line-height: 1.55; margin: 10px 0 0; opacity:.88; }
 
-    .card .foot{ display:flex; justify-content: space-between; align-items:center; gap: 20px; flex-wrap: wrap; }
+    .card .foot{
+      display:flex; justify-content: space-between; align-items:center; gap: 20px; flex-wrap: wrap;
+    }
     .card .tags{ display:flex; gap: 6px; flex-wrap: wrap; }
     .card .tags .t{
       padding: 6px 11px; border-radius: 99px;
@@ -279,11 +284,25 @@
     /* Card decoration — tiny floral sprig */
     .card .sprig{ position:absolute; opacity:.55; pointer-events:none; }
 
+    /* Resume button pill */
+    .resume-pill{
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 14px; border-radius: 99px;
+      background: var(--ink-1); color: #FFF !important;
+      font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .08em;
+      text-transform: uppercase; font-weight: 600;
+      transition: all 180ms ease; text-decoration: none !important;
+    }
+    .resume-pill:hover{
+      background: var(--rose); color: #FFF !important; transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(192, 92, 135, .3);
+    }
+
     /* ============ TOOLKIT — static categorized ============ */
     .toolkit{
       position: relative;
       padding: 64px 44px 72px;
-      max-width: 1360px; margin: 0 auto;
+      max-width: 1200px; margin: 0 auto;
     }
     .toolkit-head{
       display:flex; justify-content: space-between; align-items: baseline; gap: 20px;
@@ -321,7 +340,7 @@
 
     /* ============ CONTACT ============ */
     .contact{
-      padding: 96px 44px 40px; max-width: 1360px; margin: 0 auto;
+      padding: 96px 44px 40px; max-width: 1200px; margin: 0 auto;
       text-align: center; position:relative;
     }
     .contact .kicker{ color: var(--ink-2); }
@@ -381,7 +400,9 @@
     <a href="#toolkit">Toolkit</a>
     <a href="#contact">Contact</a>
   </div>
-  <div class="navright"></div>
+  <div class="navright">
+    <a href="Rica_Craig_Resume.pdf" target="_blank" rel="noopener" class="resume-pill">Resume ↗</a>
+  </div>
 </nav>
 
 <!-- ================ HERO ================ -->
@@ -476,6 +497,7 @@
         <div class="row"><span class="k">Focus</span><span class="v">Product design, user research, front-end &amp; AI-assisted prototyping</span></div>
         <div class="row"><span class="k">Based</span><span class="v">New York, NY</span></div>
         <div class="row"><span class="k">Studied</span><span class="v">Information Science, Cornell University</span></div>
+        <div class="row"><span class="k">Resume</span><span class="v"><a href="Rica_Craig_Resume.pdf" target="_blank" rel="noopener" style="color:var(--rose); font-weight:600; border-bottom:1.5px solid var(--rose); padding-bottom:1px;">View Rica's Resume (PDF) ↗</a></span></div>
       </div>
     </div>
   </div>
@@ -511,6 +533,7 @@
         <h3 class="title">Rescuing a program flow with one bigger, kinder pop-up.</h3>
         <p class="desc">During my Product &amp; Engineering internship at DoSomething.org, I owned the sign-in / sign-up flow for the "A Renewed Lewk" clothing-swap program. Usability testing showed users dismissing the shortcut pop-up and losing their place, so I re-scoped it as a persistent step and clarified the Act section taxonomy.</p>
       </div>
+
       <div class="foot">
         <div class="tags">
           <span class="t">Solo Design</span>
@@ -542,6 +565,7 @@
         <h3 class="title">Helping first-years find <em>their</em> Ithaca — off-campus and on&nbsp;time.</h3>
         <p class="desc">A four-tab mobile concept for Cornell first-years who arrive without the map, the bus schedule, or a group of friends. Interviews with four freshmen surfaced fragmented event info and TCAT confusion; the app recommends events by interest, weekly schedule, and grade level, then routes the ride.</p>
       </div>
+
       <div class="foot">
         <div class="tags">
           <span class="t">UX Research</span>
@@ -574,6 +598,7 @@
         <h3 class="title">A signature site for a student a&nbsp;cappella group.</h3>
         <p class="desc">A four-person team built a responsive site for Cornell's Less Than Three A Cappella. Three rounds of card sorting shaped the IA (About · Members · Concert · Audition); I designed the carousel, member gallery, and mobile hamburger nav, then shipped the front-end with the team through GitHub.</p>
       </div>
+
       <div class="foot">
         <div class="tags">
           <span class="t">HTML / CSS / JS</span>
@@ -649,6 +674,7 @@
     <span class="arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
   </a>
   <div class="links">
+    <a href="Rica_Craig_Resume.pdf" target="_blank" rel="noopener">Resume PDF ↗</a>
     <a href="https://www.linkedin.com/in/rica-c-581874186/" target="_blank" rel="noopener">LinkedIn ↗</a>
   </div>
 </section>

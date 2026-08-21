@@ -3,309 +3,781 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Less Than Three — Case Study by Rica Craig</title>
+  <title>Less Than Three A Cappella Website Case Study — Rica Craig</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#FFFFFF; --band:#FCE8ED; --band-2:#F9DDE4;
-      --ink:#1F1F1F; --ink-2:#5A5A5A; --ink-3:#8E8E8E;
-      --rose:#D63F7D; --border:#EAEAEA;
+      --bg: #FFFFFF;
+      --canvas: #FCF8F7;
+      --band: #FDF0F4;
+      --band-2: #F8E2E9;
+      --ink: #1E2238;
+      --ink-2: #55586D;
+      --ink-3: #888B9E;
+      --rose: #C05C87;
+      --rose-dark: #A33E6A;
+      --rose-light: #FCE4EC;
+      --emerald: #4E8F6C;
+      --marigold: #D19E2F;
+      --border: #E8E8EE;
+      --border-soft: rgba(42,47,74,.08);
+      --shadow-sm: 0 4px 12px rgba(30,34,56,.04);
+      --shadow-md: 0 12px 32px -12px rgba(30,34,56,.08);
+      --shadow-lg: 0 24px 48px -16px rgba(30,34,56,.12);
     }
-    html,body{ background:var(--bg); }
-    body{ margin:0; font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; color:var(--ink); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
-    a{ color:var(--ink); text-decoration:none; transition:color 160ms; }
-    a:hover{ color:var(--rose); }
-    ::selection{ background:var(--rose); color:#FFF; }
+    
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
+    body{
+      margin: 0;
+      background: var(--bg);
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a{ color: var(--ink); text-decoration: none; transition: color 160ms ease; }
+    a:hover{ color: var(--rose); }
+    ::selection{ background: var(--rose); color: #FFF; }
 
-    h1, h2, h3, h4, h5, h6{ font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; }
-    .mono{ font-family:"IBM Plex Mono", ui-monospace, monospace; letter-spacing:.08em; text-transform:uppercase; font-size:11px; font-weight:500; color:var(--ink-2); }
+    /* ============ NAV ============ */
+    .nav{
+      position: sticky; top: 0; z-index: 40;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      padding: 18px 44px;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand{ font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--ink); }
+    .brand .flourish{ color: var(--rose); margin: 0 3px; font-size: 14px; }
+    .brand em{ font-style: italic; color: var(--rose); font-weight: 500; }
+    .navlinks{ display: flex; gap: 32px; justify-content: center; }
+    .navlinks a{
+      font-size: 12.5px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      padding: 6px 0; position: relative; color: var(--ink-2); transition: color 160ms ease;
+    }
+    .navlinks a.on{ color: var(--ink); font-weight: 600; }
+    .navlinks a.on::after{
+      content: ""; position: absolute; left: 50%; bottom: -3px; width: 18px; height: 2.5px;
+      background: var(--rose); transform: translateX(-50%); border-radius: 99px;
+    }
+    .navlinks a:hover{ color: var(--rose); }
+    .navright{
+      display: flex; gap: 14px; justify-content: flex-end; align-items: center;
+      font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--ink-3);
+    }
+    .resume-pill{
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 5px 12px; border-radius: 99px; background: var(--ink);
+      color: #FFF !important; font-family: "IBM Plex Mono", monospace; font-size: 10.5px;
+      letter-spacing: .08em; text-transform: uppercase; font-weight: 600;
+      transition: all 160ms ease; text-decoration: none !important;
+    }
+    .resume-pill:hover{
+      background: var(--rose); color: #FFF !important; transform: translateY(-1px);
+    }
 
-    .nav{ position:sticky; top:0; z-index:30; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:20px 44px; background:rgba(255,255,255,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
-    .brand{ font-weight:700; font-size:17px; letter-spacing:-0.005em; color:var(--ink); }
-    .brand .flourish{ color:var(--rose); margin:0 4px; }
-    .brand em{ font-style:normal; color:var(--rose); font-weight:600; }
-    .navlinks{ display:flex; gap:32px; justify-content:center; }
-    .navlinks a{ font-size:13px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; padding:6px 0; position:relative; color:var(--ink-2); transition:color 160ms ease; }
-    .navlinks a.on{ color:var(--ink); }
-    .navlinks a.on::after{ content:""; position:absolute; left:50%; bottom:-3px; width:16px; height:2px; background:var(--rose); transform:translateX(-50%); border-radius:99px; }
-    .navlinks a:hover{ color:var(--rose); }
-    .navright{ display:flex; gap:14px; justify-content:flex-end; align-items:center; font-size:13px; color:var(--ink-2); }
+    /* ============ HERO BANNER ============ */
+    .hero-band{
+      background: linear-gradient(180deg, #FDF1F5 0%, #FAF5F7 100%);
+      padding: 32px 44px 44px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-strip{
+      max-width: 960px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--ink-2);
+    }
+    .hero-strip a{
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 99px; background: rgba(255,255,255,.8);
+      border: 1px solid var(--border-soft); transition: all 160ms ease;
+    }
+    .hero-strip a:hover{ background: #FFF; color: var(--rose); transform: translateX(-2px); }
+    .hero-media{ max-width: 820px; margin: 24px auto 0; }
+    .hero-single{
+      background: #FFF; border-radius: 16px; overflow: hidden;
+      box-shadow: var(--shadow-lg); border: 1px solid var(--border-soft);
+      padding: 12px; display: flex; align-items: center; justify-content: center;
+    }
+    .hero-single img{ width: 100%; height: auto; max-height: 500px; object-fit: contain; display: block; border-radius: 8px; }
 
-    .band.hero-band{ background:var(--band); padding:28px 44px 32px; margin:0; border-radius:0; max-width:none; }
-    .hero-strip{ max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; font-family:"IBM Plex Mono", monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-2); }
-    .hero-strip a:hover{ color:var(--rose); }
-    .hero-band .hero-media{ max-width:1000px; margin:20px auto 0; }
-    .hero-band .hero-single{ background:#fff; border-radius:6px; overflow:hidden; box-shadow:0 12px 40px -20px rgba(0,0,0,.2); aspect-ratio:16/10; }
+    /* ============ TITLE & META ============ */
+    .title-block{ max-width: 820px; margin: 56px auto 0; padding: 0 32px; }
+    .kicker{
+      font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 12px;
+    }
+    .title-block h1{
+      font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 600;
+      letter-spacing: -0.02em; margin: 0; line-height: 1.12; color: var(--ink);
+    }
+    .title-block h1 em{ font-style: italic; color: var(--rose); font-weight: 500; }
+    .title-block .subtitle{
+      font-size: 18px; line-height: 1.55; color: var(--ink-2); margin-top: 14px;
+    }
+    .title-block .tags{ margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .title-block .tag{
+      padding: 5px 12px; border-radius: 99px; font-family: "IBM Plex Mono", monospace;
+      font-size: 11px; letter-spacing: .04em; font-weight: 600;
+      background: var(--band); color: var(--rose-dark); border: 1px solid rgba(192,92,135,.2);
+      text-transform: uppercase;
+    }
 
-    .title-block{ max-width:660px; margin:56px auto 0; padding:0 32px; }
-    .title-block h1{ font-size:32px; font-weight:700; letter-spacing:-0.01em; margin:0; line-height:1.15; }
-    .title-block .date{ color:var(--ink-3); margin-top:8px; font-size:15px; }
+    .meta-grid{
+      max-width: 820px; margin: 36px auto 0; padding: 24px 32px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .meta-grid .cell .k{
+      font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; font-weight: 600;
+    }
+    .meta-grid .cell .v{ font-size: 14.5px; color: var(--ink); line-height: 1.4; font-weight: 500; }
+    .meta-grid .cell.tools .pills{ display: flex; flex-wrap: wrap; gap: 5px; }
+    .tool-pill{
+      padding: 4px 9px; border-radius: 99px; font-family: "IBM Plex Mono", monospace;
+      font-size: 10px; letter-spacing: .05em; font-weight: 600; background: var(--ink);
+      color: #FFF; text-transform: uppercase;
+    }
+    .tool-pill.alt{ background: #FFF; color: var(--ink); border: 1px solid var(--border); }
 
-    .reading{ max-width:660px; margin:0 auto; padding:32px 32px 8px; }
-    .reading h2{ font-size:22px; font-weight:700; letter-spacing:-0.005em; margin:48px 0 14px; line-height:1.3; }
-    .reading h2:first-child{ margin-top:0; }
-    .reading h3{ font-size:15.5px; font-weight:700; margin:24px 0 6px; }
-    .reading p{ font-size:15px; line-height:1.7; color:var(--ink); margin:0 0 14px; text-wrap:pretty; }
-    .reading ul{ margin:8px 0 20px; padding-left:22px; }
-    .reading ul li{ font-size:15px; line-height:1.7; margin-bottom:6px; }
-    .reading ul li::marker{ color:var(--rose); }
-    .reading .rose{ color:var(--rose); }
+    /* ============ EXECUTIVE SUMMARY / RECRUITER TL;DR ============ */
+    .tldr-card{
+      max-width: 820px; margin: 40px auto 0; padding: 32px 36px;
+      background: linear-gradient(145deg, #FFF9FB 0%, #FDF2F6 100%);
+      border-radius: 18px; border: 1px solid rgba(192, 92, 135, .2);
+      box-shadow: var(--shadow-sm);
+    }
+    .tldr-head{
+      display: flex; align-items: center; gap: 8px; font-family: "IBM Plex Mono", monospace;
+      font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--rose);
+      font-weight: 600; margin-bottom: 18px;
+    }
+    .tldr-head .dot{ width: 8px; height: 8px; border-radius: 99px; background: var(--rose); }
+    .tldr-grid{
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .tldr-col h4{ font-size: 13.5px; font-weight: 700; margin: 0 0 6px; color: var(--ink); text-transform: uppercase; letter-spacing: .04em; }
+    .tldr-col p{ font-size: 14px; line-height: 1.55; color: var(--ink-2); margin: 0; }
 
-    .meta-grid{ max-width:660px; margin:32px auto 8px; padding:24px 32px; display:grid; grid-template-columns:repeat(2,1fr); gap:24px 40px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-    .meta-grid .cell .k{ font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-bottom:6px; }
-    .meta-grid .cell .v{ font-size:15px; color:var(--ink); line-height:1.4; font-weight:500; }
-    .meta-grid .cell.tools .pills{ display:flex; flex-wrap:wrap; gap:6px; }
-    .tool-pill{ padding:5px 10px; border-radius:99px; font-family:"IBM Plex Mono", monospace; font-size:10.5px; letter-spacing:.05em; font-weight:500; background:#111; color:#FFF; border:none; text-transform:uppercase; }
-    .tool-pill.alt{ background:#fff; color:#111; border:1px solid var(--border); }
+    /* ============ SECTION TOC BAR ============ */
+    .toc-bar{
+      position: sticky; top: 61px; z-index: 30;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-soft); padding: 12px 32px;
+      margin: 40px auto 0;
+    }
+    .toc-inner{
+      max-width: 820px; margin: 0 auto;
+      display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+    }
+    .toc-inner::-webkit-scrollbar{ display: none; }
+    .toc-link{
+      flex: none; padding: 6px 14px; border-radius: 99px; background: #F6F6FA;
+      font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink-2); font-weight: 500; transition: all 160ms ease;
+    }
+    .toc-link:hover{ background: var(--rose); color: #FFF; }
 
-    .band{ max-width:960px; margin:36px auto; padding:44px 56px; background:var(--band); border-radius:2px; }
-    .band .grid{ display:grid; gap:16px; align-items:end; }
-    .band .grid.g2{ grid-template-columns:repeat(2,1fr); }
-    .band .grid.g3{ grid-template-columns:repeat(3,1fr); }
-    .band .grid.g4{ grid-template-columns:repeat(4,1fr); }
-    .band .media{ background:#fff; border-radius:6px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,.06); }
-    .band .media.phone{ aspect-ratio:9/19; }
-    .band .media.wide{ aspect-ratio:16/10; }
-    .band .media.tall{ aspect-ratio:3/4; }
-    .band .media.square{ aspect-ratio:1/1; }
-    .band .caption{ text-align:center; font-style:italic; color:var(--ink-3); margin-top:20px; font-size:13.5px; }
-    .band .single{ max-width:520px; margin:0 auto; }
-    .band .single.wide{ max-width:800px; }
+    /* ============ EDITORIAL READING SECTION ============ */
+    .reading{ max-width: 820px; margin: 0 auto; padding: 48px 32px 12px; }
+    .reading h2{
+      font-size: 26px; font-weight: 600; letter-spacing: -0.015em; margin: 48px 0 16px;
+      line-height: 1.25; color: var(--ink);
+    }
+    .reading h2:first-child{ margin-top: 0; }
+    .reading h3{ font-size: 18px; font-weight: 600; margin: 28px 0 8px; color: var(--ink); }
+    .reading p{
+      font-size: 16px; line-height: 1.75; color: var(--ink-2); margin: 0 0 18px; text-wrap: pretty;
+    }
+    .reading p strong{ color: var(--ink); font-weight: 600; }
+    .reading ul, .reading ol{ margin: 12px 0 24px; padding-left: 24px; }
+    .reading ul li, .reading ol li{ font-size: 15.5px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+    .reading ul li::marker{ color: var(--rose); }
+    .reading .rose{ color: var(--rose); font-weight: 500; }
+    .reading blockquote{
+      margin: 32px 0; padding: 22px 28px; border-left: 4px solid var(--rose);
+      background: linear-gradient(90deg, #FDF0F4 0%, #FAF5F7 100%);
+      border-radius: 0 12px 12px 0; font-size: 18px; line-height: 1.55;
+      font-style: italic; font-weight: 500; color: var(--ink);
+    }
 
-    .insights{ max-width:660px; margin:20px auto 32px; padding:0 32px; display:grid; grid-template-columns:1fr 1fr; gap:20px 32px; }
-    .insight h3{ font-size:15.5px; font-weight:700; margin:0 0 6px; display:flex; align-items:baseline; gap:8px; }
-    .insight h3 .n{ font-family:"IBM Plex Mono", monospace; font-size:11px; color:var(--ink-3); font-weight:500; letter-spacing:.06em; }
-    .insight p{ font-size:14.5px; line-height:1.6; color:var(--ink-2); margin:0; }
+    /* ============ VISUAL MEDIA BANDS ============ */
+    .band{
+      max-width: 960px; margin: 36px auto; padding: 36px 40px;
+      background: var(--canvas); border-radius: 20px; border: 1px solid var(--border-soft);
+    }
+    .band .caption{
+      text-align: center; font-style: italic; color: var(--ink-3); margin-top: 18px;
+      font-size: 14px; line-height: 1.4;
+    }
+    .band .caption a{ color: var(--rose); border-bottom: 1px solid var(--rose); }
+    .band .single.wide{ max-width: 760px; margin: 0 auto; }
 
-    .back-link{ max-width:660px; margin:32px auto 0; padding:0 32px; }
-    .back-link a{ font-size:14px; color:var(--ink-2); border-bottom:1px solid var(--border); padding-bottom:2px; }
-    .back-link a:hover{ color:var(--rose); border-color:var(--rose); }
+    /* ============ DELIVERABLE SHOWCASE CARDS ============ */
+    .showcase-grid{
+      max-width: 960px; margin: 28px auto 0; display: grid; gap: 24px;
+    }
+    .showcase-grid.g2{ grid-template-columns: repeat(2, 1fr); }
+    .showcase-grid.g4{ grid-template-columns: repeat(4, 1fr); }
 
-    .next-project{ max-width:1100px; margin:80px auto 0; padding:36px 44px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; }
-    .next-project .side{ font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); }
-    .next-project .link{ display:flex; align-items:center; gap:20px; transition:color 200ms; }
-    .next-project .link:hover{ color:var(--rose); }
-    .next-project .link .no{ font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); }
-    .next-project .link .title{ font-size:24px; font-weight:700; letter-spacing:-0.005em; line-height:1.15; color:inherit; }
-    .next-project .arrow{ width:44px; height:44px; border-radius:99px; border:1.5px solid var(--ink); display:inline-flex; align-items:center; justify-content:center; transition:background 200ms,color 200ms,border-color 200ms,transform 200ms; color:var(--ink); flex:none; }
-    .next-project .link:hover .arrow{ background:var(--rose); border-color:var(--rose); color:#fff; transform:translateX(3px); }
+    .showcase-card{
+      background: #FFF; border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
+    }
+    .showcase-head{
+      padding: 14px 18px; background: linear-gradient(90deg, #FDF1F5 0%, #FFF 100%);
+      border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .showcase-title{
+      font-size: 14.5px; font-weight: 600; color: var(--ink); margin: 0;
+    }
+    .showcase-tag{
+      font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .08em;
+      text-transform: uppercase; padding: 3px 8px; border-radius: 99px; background: #FFF;
+      border: 1px solid var(--border); color: var(--rose-dark); font-weight: 600;
+    }
+    .showcase-media{
+      background: #FAFAFC; padding: 16px; display: flex; align-items: center; justify-content: center;
+      border-bottom: 1px solid var(--border-soft); min-height: 240px;
+    }
+    .showcase-media img{
+      width: auto; max-width: 100%; height: auto; object-fit: contain; display: block; margin: 0 auto;
+    }
+    .showcase-media.desktop-media{ min-height: 300px; }
+    .showcase-media.desktop-media img{ max-height: 460px; box-shadow: 0 4px 16px rgba(30,34,56,.06); border-radius: 6px; }
+    .showcase-media.phone-media{ min-height: 340px; }
+    .showcase-media.phone-media img{ max-height: 420px; }
+    .showcase-desc{
+      padding: 14px 18px; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); margin: 0;
+    }
+    .showcase-desc strong{ color: var(--ink); }
 
-    .foot-strip{ margin-top:40px; padding:22px 44px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; color:var(--ink-3); font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
-    .foot-strip .heart{ color:var(--rose); }
-    .foot-strip a:hover{ color:var(--rose); }
+    /* ============ THEMES / INSIGHTS GRID ============ */
+    .themes-grid{
+      max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .theme{
+      background: #FFF; border: 1px solid var(--border); border-radius: 14px;
+      padding: 24px 20px; box-shadow: var(--shadow-sm);
+    }
+    .theme .num{
+      font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 8px;
+    }
+    .theme h3{ font-size: 16px; font-weight: 600; margin: 0 0 8px; line-height: 1.35; color: var(--ink); }
+    .theme p{ font-size: 14px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+    /* ============ INTERACTIVITY CARDS ============ */
+    .feature-grid{
+      max-width: 820px; margin: 20px auto 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;
+    }
+    .feature-card{
+      background: #FFF; border: 1px solid var(--border); border-radius: 14px;
+      padding: 22px 24px; box-shadow: var(--shadow-sm);
+    }
+    .feature-card h4{
+      font-size: 15.5px; font-weight: 600; margin: 0 0 6px; color: var(--ink); display: flex; align-items: center; gap: 8px;
+    }
+    .feature-card h4 .dot{ width: 6px; height: 6px; border-radius: 99px; background: var(--rose); flex: none; }
+    .feature-card p{ font-size: 14px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+    /* ============ FOOTER & NEXT PROJECT ============ */
+    .back-link{ max-width: 820px; margin: 48px auto 0; padding: 0 32px; }
+    .back-link a{
+      font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--ink-2); border-bottom: 1.5px solid var(--border);
+      padding-bottom: 4px; font-weight: 500;
+    }
+    .back-link a:hover{ color: var(--rose); border-color: var(--rose); }
+
+    .next-project{
+      max-width: 960px; margin: 80px auto 0; padding: 40px 48px;
+      background: #FAF7FA; border-radius: 20px; border: 1px solid var(--border-soft);
+      display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
+    }
+    .next-project .side{
+      font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ink-3); font-weight: 600;
+    }
+    .next-project .link{ display: flex; align-items: center; gap: 24px; }
+    .next-project .link .no{
+      font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--rose); font-weight: 600;
+    }
+    .next-project .link .title{
+      font-size: 26px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.15; color: var(--ink);
+    }
+    .next-project .arrow{
+      width: 48px; height: 48px; border-radius: 99px; border: 1.5px solid var(--ink);
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: all 200ms ease; color: var(--ink); flex: none;
+    }
+    .next-project .link:hover .arrow{
+      background: var(--rose); border-color: var(--rose); color: #FFF; transform: translateX(4px);
+    }
+
+    .foot-strip{
+      margin-top: 64px; padding: 24px 44px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;
+      color: var(--ink-3); font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .foot-strip .heart{ color: var(--rose); }
+
+    @media (max-width: 860px){
+      .meta-grid{ grid-template-columns: repeat(2, 1fr); }
+      .tldr-grid{ grid-template-columns: 1fr; }
+      .themes-grid{ grid-template-columns: 1fr; }
+      .feature-grid{ grid-template-columns: 1fr; }
+      .showcase-grid.g2{ grid-template-columns: 1fr; }
+      .showcase-grid.g4{ grid-template-columns: repeat(2, 1fr); }
+      .band{ padding: 24px 18px; }
+      .nav{ padding: 16px 24px; }
+      .hero-band{ padding: 24px 20px 36px; }
+    }
   </style>
 </head>
 <body>
+
+<!-- ================ TOP NAVIGATION ================ -->
 <nav class="nav">
-  <a href="Portfolio.dc.html" class="brand">Rica <span class="flourish">✿</span> <em>Craig</em></a>
+  <a href="index.html" class="brand">Rica <span class="flourish">✿</span> <em>Craig</em></a>
   <div class="navlinks">
-    <a href="Portfolio.dc.html#work" class="on">Work</a>
-    <a href="About.dc.html">About</a>
-    <a href="Portfolio.dc.html#toolkit">Toolkit</a>
-    <a href="Portfolio.dc.html#contact">Contact</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#work" class="on">Work</a>
+    <a href="index.html#toolkit">Toolkit</a>
+    <a href="index.html#contact">Contact</a>
   </div>
-  <div class="navright">Case Study 03, 2022</div>
+  <div class="navright">
+    <a href="Rica_Craig_Resume.pdf" target="_blank" rel="noopener" class="resume-pill">Resume ↗</a>
+  </div>
 </nav>
 
-<section class="band hero-band">
+<!-- ================ HERO MEDIA ================ -->
+<section class="hero-band">
   <div class="hero-strip">
-    <span>Rica Craig</span>
-    <a href="Portfolio.dc.html#work">Back to work →</a>
+    <span>Less Than Three · Client Web Design</span>
+    <a href="index.html#work">← Back to work</a>
   </div>
   <div class="hero-media">
-    <div class="hero-single"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_about_page.png" alt="About — desktop" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+    <div class="hero-single">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_about_page.png" alt="Less Than Three A Cappella desktop website hero mockup">
+    </div>
   </div>
 </section>
 
+<!-- ================ TITLE & METADATA ================ -->
 <section class="title-block">
-  <h1>Less Than Three A Cappella</h1>
-  <div class="date">May 2022 · Cornell client project</div>
-</section>
-
-<article class="reading">
-  <p>A website for Less Than Three A Cappella, a student a cappella group at Cornell University — designed and built by a team of four over the spring semester. Three rounds of card sorting shaped the information architecture; I designed the carousel, member gallery, and mobile hamburger nav, then shipped the front-end with the team through GitHub.</p>
-</article>
-
-<section class="band">
-  <div class="grid g2">
-    <div class="media wide"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_about_page.png" alt="About — desktop" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-    <div class="media wide"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_members_page.png" alt="Members — desktop" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+  <div class="kicker">Cornell University · Client Project · Spring 2022</div>
+  <h1>Elevating an A Cappella Group's <em>Digital Presence</em></h1>
+  <p class="subtitle">An end-to-end client web design and front-end development project creating a vibrant, music-first digital home for Cornell University's premier pop/R&amp;B a cappella ensemble.</p>
+  <div class="tags">
+    <span class="tag">UX Design</span>
+    <span class="tag">Web Development</span>
+    <span class="tag">Information Architecture</span>
+    <span class="tag">Card Sorting</span>
+    <span class="tag">HTML / CSS / JS</span>
+    <span class="tag">GitHub Collaboration</span>
   </div>
-  <div class="caption">Final desktop designs.</div>
 </section>
 
 <div class="meta-grid">
   <div class="cell">
-    <div class="k">My Role</div>
-    <div class="v">UX Designer &amp; Web Developer</div>
+    <div class="k">Role &amp; Scope</div>
+    <div class="v">UX Designer &amp; Front-End Web Developer</div>
   </div>
   <div class="cell">
-    <div class="k">Timeline</div>
-    <div class="v">May 2022 · Team of four · Client project</div>
+    <div class="k">Timeline &amp; Team</div>
+    <div class="v">Jan 2022 – May 2022 · Team of 4</div>
   </div>
   <div class="cell tools">
     <div class="k">Tools Used</div>
     <div class="pills">
-      <span class="tool-pill">Atom</span>
-      <span class="tool-pill alt">GitHub</span>
       <span class="tool-pill">HTML / CSS / JS</span>
+      <span class="tool-pill alt">GitHub</span>
+      <span class="tool-pill alt">Atom</span>
     </div>
   </div>
   <div class="cell">
     <div class="k">The Objective</div>
-    <div class="v">Build a site that stands out from other a cappella groups and makes concert &amp; audition info easy to find.</div>
+    <div class="v">Build a distinctive web presence that clarifies group identity and makes concert &amp; audition info effortless to find.</div>
   </div>
 </div>
 
-<article class="reading">
-  <h2>Client goals</h2>
-  <p>My team met with the leaders of the group to understand what they wanted from the new site. Three goals emerged:</p>
-  <ul>
-    <li>Update existing information (members, executive board, etc.)</li>
-    <li>Stand out from similar a cappella groups — signature color and clear group ethos.</li>
-    <li>Make concert and gig information easy for audiences, and audition info easy for prospective members.</li>
-  </ul>
-
-  <h2>Audience</h2>
-  <p>The client wanted to reach Cornell students interested in a cappella — either to audition or to attend a show. It's a cohesive audience: all Cornell students who know Cornell's a cappella culture and share an interest in music.</p>
-
-  <h2>User interviews</h2>
-  <p>We interviewed potential audience members about their interest in a cappella and music. Prompts included:</p>
-  <ul>
-    <li>Tell me about yourself (omit anything private).</li>
-    <li>Have you been to a Less Than Three show? What brought you there, or prevented you?</li>
-    <li>Have you been to any concert, music show, or a cappella performance? What brought you?</li>
-    <li>Have you auditioned for a cappella or other music groups? What brought you to the audition?</li>
-    <li>Before going, did you seek information? What were you looking for? How did you find it?</li>
-    <li>How did you first find out about the show — what sources?</li>
-  </ul>
-
-  <h2>User goals</h2>
-  <p>From the interviews, three audience goals framed the site:</p>
-  <ul>
-    <li>Have a clearer understanding of the group and what they do.</li>
-    <li>Find more information about upcoming concerts.</li>
-    <li>Find more information about the audition process.</li>
-  </ul>
-
-  <h2>Content planning &amp; organization</h2>
-  <p>Working backward from the audience's goals, we outlined the site's content: introduction of the group, member information, audition information, concert information, contact &amp; social media, and concert videos &amp; pictures.</p>
-  <p>We ran three rounds of card sorting to make sure the organization was legible to the audience. We chose the final iteration — each user goal earned its own page: a page for concert and gig details, a dedicated audition page, and an "About" home page introducing the group. A separate members page spotlighted individual singers and the executive board.</p>
-</article>
-
-<section class="band">
-  <div class="grid g2">
-    <div class="media wide"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/iteration1.png" alt="Card sort — iteration 1" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
-    <div class="media wide"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/iteration3.png" alt="Card sort — iteration 3" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
-  </div>
-  <div class="caption">First and third rounds of card sorting.</div>
-</section>
-
-<article class="reading">
-  <h2>Themes</h2>
-  <p>Three themes carried the site's voice and helped the audience settle in:</p>
-</article>
-
-<div class="insights">
-  <div class="insight">
-    <h3><span class="n">01</span> Purple &amp; black</h3>
-    <p>Two colors carried throughout the site — a way to help the audience settle in and learn more about the club.</p>
-  </div>
-  <div class="insight">
-    <h3><span class="n">02</span> Music</h3>
-    <p>The site is about a group that makes music, for an audience that loves it — the theme belongs to everyone in the room.</p>
-  </div>
-  <div class="insight">
-    <h3><span class="n">03</span> Excitement</h3>
-    <p>The energy that keeps the group going is the same energy that draws people to the site.</p>
+<!-- ================ RECRUITER TL;DR QUICK SCAN ================ -->
+<div class="tldr-card">
+  <div class="tldr-head"><span class="dot"></span> Executive Summary / Quick Scan</div>
+  <div class="tldr-grid">
+    <div class="tldr-col">
+      <h4>The Challenge</h4>
+      <p>Less Than Three needed a refreshed, mobile-friendly website that stood out from crowded campus singing groups and provided clear information for concert-goers and prospective auditionees.</p>
+    </div>
+    <div class="tldr-col">
+      <h4>My Approach</h4>
+      <p>Interviewed target audiences, conducted 3 iterations of card sorting to architect site hierarchy, designed responsive layouts with a signature purple &amp; black visual identity, and built key front-end components.</p>
+    </div>
+    <div class="tldr-col">
+      <h4>Key Outcome</h4>
+      <p>Shipped a responsive 4-page website featuring a performance carousel, interactive member bio gallery, concert details with embedded media, and a streamlined audition portal.</p>
+    </div>
   </div>
 </div>
 
-<article class="reading">
-  <h2>Interactivity ideas</h2>
+<!-- ================ JUMP NAVIGATION ================ -->
+<div class="toc-bar">
+  <div class="toc-inner">
+    <a class="toc-link" href="#overview">Overview</a>
+    <a class="toc-link" href="#client-goals">Client Goals</a>
+    <a class="toc-link" href="#audience">Audience &amp; Research</a>
+    <a class="toc-link" href="#ia">Information Architecture</a>
+    <a class="toc-link" href="#themes">Visual Identity</a>
+    <a class="toc-link" href="#interactivity">Interactivity</a>
+    <a class="toc-link" href="#layouts">Layout Explorations</a>
+    <a class="toc-link" href="#desktop-design">Desktop Design</a>
+    <a class="toc-link" href="#mobile-design">Mobile Design</a>
+    <a class="toc-link" href="#reflection">Reflection</a>
+  </div>
+</div>
+
+<!-- ================ 01. OVERVIEW ================ -->
+<article class="reading" id="overview">
+  <h2>01. Overview &amp; Project Background</h2>
+  <p><strong>Less Than Three A Cappella</strong> is a co-ed student a cappella ensemble at Cornell University known for modern pop and contemporary arrangements. Our four-person team designed and engineered an entirely new web experience over the Spring 2022 semester.</p>
+  <p>Three rounds of structured card sorting shaped the site's information architecture. I led the interaction design for the <strong>home-page performance carousel</strong>, <strong>individual member bio gallery</strong>, and <strong>responsive mobile navigation</strong>, then programmed and shipped the production front-end alongside my teammates through GitHub version control.</p>
+
+  <blockquote>
+    "How might we design a vibrant digital presence that showcases Less Than Three's distinct musical energy while making concert and audition info instantly accessible?"
+  </blockquote>
+</article>
+
+<div class="showcase-grid g2">
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">Home / About Page</h3>
+      <span class="showcase-tag">Desktop View</span>
+    </div>
+    <div class="showcase-media desktop-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_about_page.png" alt="About page final desktop view">
+    </div>
+    <p class="showcase-desc"><strong>Introduction &amp; Identity:</strong> Introduces the group, upcoming highlights, and an interactive hero performance carousel.</p>
+  </div>
+
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">Member Bio Gallery</h3>
+      <span class="showcase-tag">Desktop View</span>
+    </div>
+    <div class="showcase-media desktop-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_members_page.png" alt="Members page final desktop view">
+    </div>
+    <p class="showcase-desc"><strong>Member Roster:</strong> Spotlights each singer's voice part, academic major, class year, and executive board roles.</p>
+  </div>
+</div>
+
+<!-- ================ 02. CLIENT GOALS ================ -->
+<article class="reading" id="client-goals">
+  <h2>02. Client Collaboration &amp; Core Goals</h2>
+  <p>We partnered directly with Less Than Three's student leadership and executive board to understand their vision and operational needs for the new site. Three primary priorities emerged:</p>
   <ul>
-    <li><strong>Member gallery with short bios</strong> — an overview of the group and a way to get introduced to individuals.</li>
-    <li><strong>Carousel on the home page</strong> — welcome the visitor with imagery and performance shots without dominating the layout.</li>
-    <li><strong>Accordion for concert FAQ</strong> — clickable questions so audiences can find exactly what they want without overwhelming the page.</li>
-    <li><strong>Hamburger menu on mobile</strong> — keeps vertical space clean while preserving full nav.</li>
+    <li><strong>Keep Information Fresh &amp; Current:</strong> Easily update singing rosters, executive board positions, and semester leadership rosters.</li>
+    <li><strong>Stand Out with Signature Identity:</strong> Establish a bold visual identity centered on their signature purple and black aesthetic and high-energy music culture.</li>
+    <li><strong>Streamline Key User Journeys:</strong> Make concert, gig, and ticketing details transparent for fans, while clarifying requirements and timelines for prospective auditionees.</li>
   </ul>
 </article>
 
-<section class="band">
-  <div class="single wide">
-    <div class="media wide"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/group_final_carousel_design.png" alt="Carousel sketch" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
-  </div>
-  <div class="caption">Final design sketch for the home-page carousel.</div>
-</section>
-
-<article class="reading">
-  <h2>Layout exploration</h2>
-  <p>We sketched multiple layouts across desktop and mobile before committing to the final directions.</p>
-</article>
-
-<section class="band">
-  <div class="grid g2">
-    <div class="media wide"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/layout_exploration_desktop_about.png" alt="Layout — desktop About" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
-    <div class="media wide"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/layout_exploration_desktop_concert.png" alt="Layout — desktop Concert" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
-  </div>
-  <div class="caption">Layout explorations for the About and Concert pages.</div>
-</section>
-
-<article class="reading">
-  <h2>Client feedback</h2>
+<!-- ================ 03. AUDIENCE & RESEARCH ================ -->
+<article class="reading" id="audience">
+  <h2>03. Target Audience &amp; User Interviews</h2>
+  <p>The primary audience is Cornell University students interested in a cappella—either looking to attend live campus concerts or auditioning to join the group. Because this community is cohesive and highly engaged with Cornell's performing arts scene, understanding their discovery habits was critical.</p>
+  <p>We conducted user interviews with prospective audience members to uncover how they seek performance information and evaluate audition opportunities. Key interview prompts explored:</p>
   <ul>
-    <li>No complaints on any layout sketches; chosen concert videos were approved.</li>
-    <li>The stylistic choices — purple and black — went over well. More color, more personality than the previous site.</li>
-    <li>The client suggested adding their concert poster to the Concert info page. We mocked it up and they preferred the version with the poster.</li>
+    <li>Have you attended a Less Than Three concert? What motivated your attendance, or what barriers prevented you?</li>
+    <li>Where do you typically discover upcoming music events and concerts across campus?</li>
+    <li>When considering auditions for music groups, what specific logistical and repertoire details do you look for in advance?</li>
+    <li>What impression do you expect from an ensemble's official website versus their social media?</li>
   </ul>
 
-  <h2>Final desktop design</h2>
+  <h3>Synthesizing User Goals</h3>
+  <p>From our qualitative interview findings, three core audience goals emerged to anchor the website layout:</p>
+  <ol>
+    <li><strong>Group Ethos &amp; Personality:</strong> Gain a genuine sense of the group's musical style, members, and team culture.</li>
+    <li><strong>Concert &amp; Ticketing Access:</strong> Quickly find accurate dates, venue locations, and ticket links for upcoming semester shows.</li>
+    <li><strong>Audition Guidance:</strong> Understand the audition timeline, preparation requirements, vocal ranges, and callback procedures.</li>
+  </ol>
 </article>
 
-<section class="band">
-  <div class="grid g2">
-    <div class="media wide"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_about_page.png" alt="About — desktop" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-    <div class="media wide"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_members_page.png" alt="Members — desktop" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-    <div class="media wide"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_concert_page.png" alt="Concert — desktop" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-    <div class="media wide"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_audition_page.png" alt="Audition — desktop" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-  </div>
-  <div class="caption">Final desktop screens — About, Members, Concert, Audition.</div>
-</section>
-
-<article class="reading">
-  <h2>Final mobile design</h2>
+<!-- ================ 04. INFORMATION ARCHITECTURE ================ -->
+<article class="reading" id="ia">
+  <h2>04. Information Architecture &amp; Card Sorting</h2>
+  <p>Working backward from audience and client goals, we mapped out all candidate content items: group history, member bios, audition FAQ, concert dates, ticketing, video recordings, and social channels.</p>
+  <p>To ensure content hierarchy was intuitive, we executed <strong>three iterative rounds of open and closed card sorting</strong> with representative students. The findings established a focused 4-page structure where each audience goal mapped cleanly to a dedicated page:</p>
+  <ul>
+    <li><strong>Home / About:</strong> Introduces the group, latest highlights, and visual performance carousel.</li>
+    <li><strong>Members:</strong> Profiles current singers, vocal parts, and executive board responsibilities.</li>
+    <li><strong>Concerts:</strong> Dedicated hub for upcoming semester shows, guest appearances, and past concert videos.</li>
+    <li><strong>Auditions:</strong> Step-by-step guidance for prospective singers, FAQ accordions, and sign-up links.</li>
+  </ul>
 </article>
 
-<section class="band">
-  <div class="grid g4">
-    <div class="media phone"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_mobile_about_page.png" alt="About — mobile" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
-    <div class="media phone"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_mobile_members_page.png" alt="Members — mobile" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
-    <div class="media phone"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_mobile_concert_page.png" alt="Concert — mobile" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
-    <div class="media phone"><img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_mobile_audition_page.png" alt="Audition — mobile" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
+<div class="showcase-grid g2">
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">Round 01 · Exploratory Card Sorting</h3>
+      <span class="showcase-tag">Open Sort</span>
+    </div>
+    <div class="showcase-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/iteration1.png" alt="Card sort results — iteration 1">
+    </div>
+    <p class="showcase-desc"><strong>Early Findings:</strong> Initial open sorting showed ambiguity between general member info and audition guidelines, prompting a clearer page separation.</p>
   </div>
-  <div class="caption">Final mobile screens — About, Members, Concert, Audition.</div>
-</section>
 
-<article class="reading">
-  <h2>Reflection</h2>
-  <p>I learned how to collaborate as a group on GitHub — merging, pushing, pulling, resolving conflicts in the open. I learned how to communicate with teammates to distribute work and hit milestones on time.</p>
-  <p>I also learned how to build a site that holds the client's needs and the target audience's needs at once. We listened to the client's vision instead of substituting our own preferences — that's the through-line I take from this project into everything I've built since.</p>
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">Round 03 · Final Validated IA</h3>
+      <span class="showcase-tag">Closed Sort</span>
+    </div>
+    <div class="showcase-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/iteration3.png" alt="Card sort results — iteration 3">
+    </div>
+    <p class="showcase-desc"><strong>Finalized Structure:</strong> Closed sorting validated a 100% intuitive 4-page layout separating concerts, auditions, roster, and group story.</p>
+  </div>
+</div>
+
+<!-- ================ 05. BRAND IDENTITY ================ -->
+<article class="reading" id="themes">
+  <h2>05. Brand Identity &amp; Visual Language</h2>
+  <p>To differentiate Less Than Three from other campus ensembles, we established three core thematic pillars that guided our typography, color palette, and visual assets:</p>
+</article>
+
+<div class="themes-grid">
+  <div class="theme">
+    <div class="num">Pillar 01 · Palette</div>
+    <h3>Purple &amp; Black</h3>
+    <p>The group's signature colors provide strong contrast and memorable visual distinction across hero sections and button CTAs.</p>
+  </div>
+  <div class="theme">
+    <div class="num">Pillar 02 · Content</div>
+    <h3>Music &amp; Harmony</h3>
+    <p>Showcasing live performance videos, member voice parts, and high-quality photography puts their craft front and center.</p>
+  </div>
+  <div class="theme">
+    <div class="num">Pillar 03 · Energy</div>
+    <h3>Excitement &amp; Vibe</h3>
+    <p>Modern typography and dynamic layouts convey the warmth, humor, and close-knit friendship of the ensemble.</p>
+  </div>
+</div>
+
+<!-- ================ 06. INTERACTIVE FEATURES ================ -->
+<article class="reading" id="interactivity">
+  <h2>06. Interactive Feature Design</h2>
+  <p>We designed purposeful interactive components to make exploring the site engaging without creating visual clutter:</p>
+</article>
+
+<div class="feature-grid">
+  <div class="feature-card">
+    <h4><span class="dot"></span> Performance Carousel</h4>
+    <p>Welcomes visitors on the home page with rotating concert imagery and show photography without pushing content below the fold.</p>
+  </div>
+  <div class="feature-card">
+    <h4><span class="dot"></span> Member Bio Gallery</h4>
+    <p>Interactive grid spotlighting each singer's voice part, major, class year, and favorite arrangement.</p>
+  </div>
+  <div class="feature-card">
+    <h4><span class="dot"></span> FAQ Accordion</h4>
+    <p>Collapsible questions on the Audition page letting prospective singers find answers quickly without long scrolling walls of text.</p>
+  </div>
+  <div class="feature-card">
+    <h4><span class="dot"></span> Responsive Mobile Nav</h4>
+    <p>Compact hamburger drawer navigation maintaining seamless access to all 4 pages on mobile viewports.</p>
+  </div>
+</div>
+
+<div class="showcase-grid" style="max-width: 760px;">
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">Home Page Carousel Interaction Sketch</h3>
+      <span class="showcase-tag">Component Design</span>
+    </div>
+    <div class="showcase-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/group_final_carousel_design.png" alt="Interactive home page carousel design sketch" style="max-height: 440px;">
+    </div>
+    <p class="showcase-desc"><strong>Interaction Design:</strong> Hand-drawn wireframe specification detailing responsive photo rotation, indicator dots, and caption overlays for performance highlights.</p>
+  </div>
+</div>
+
+<!-- ================ 07. LAYOUT EXPLORATIONS ================ -->
+<article class="reading" id="layouts">
+  <h2>07. Layout Explorations &amp; Client Feedback</h2>
+  <p>We sketched low-fidelity layouts across desktop and mobile to test content placement before coding. When presenting our layout iterations to the client leadership, feedback was overwhelmingly positive:</p>
+  <ul>
+    <li><strong>Strong Visual Balance:</strong> The executive board loved the bold purple/black contrast, noting it gave the club much stronger personality than their previous site.</li>
+    <li><strong>Concert Poster Integration:</strong> The client suggested integrating their official semester concert poster directly on the Concert page, which we incorporated into the final build.</li>
+    <li><strong>Approved Video Curation:</strong> Leadership approved our curated showcase of signature performance arrangements.</li>
+  </ul>
+</article>
+
+<div class="showcase-grid g2">
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">About Page Wireframe</h3>
+      <span class="showcase-tag">Low-Fidelity</span>
+    </div>
+    <div class="showcase-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/layout_exploration_desktop_about.png" alt="Desktop layout exploration: About page">
+    </div>
+    <p class="showcase-desc"><strong>Structure:</strong> Established top navigation, hero banner, mission statement, and social connection footer.</p>
+  </div>
+
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">Concert Page Wireframe</h3>
+      <span class="showcase-tag">Low-Fidelity</span>
+    </div>
+    <div class="showcase-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/layout_exploration_desktop_concert.png" alt="Desktop layout exploration: Concert page">
+    </div>
+    <p class="showcase-desc"><strong>Media Layout:</strong> Planned the side-by-side concert poster and video showcase for upcoming gigs.</p>
+  </div>
+</div>
+
+<!-- ================ 08. FINAL DESKTOP SCREENS ================ -->
+<article class="reading" id="desktop-design">
+  <h2>08. Final Desktop Experience</h2>
+  <p>The final responsive desktop site delivers a seamless browsing experience across all four core destinations:</p>
+</article>
+
+<div class="showcase-grid g2">
+  <!-- Screen 1 -->
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">01 · About &amp; Home Page</h3>
+      <span class="showcase-tag">Desktop</span>
+    </div>
+    <div class="showcase-media desktop-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_about_page.png" alt="About page final desktop screen">
+    </div>
+    <p class="showcase-desc"><strong>Welcome Experience:</strong> Interactive hero carousel, group history, latest semester updates, and social channels.</p>
+  </div>
+
+  <!-- Screen 2 -->
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">02 · Members &amp; Roster</h3>
+      <span class="showcase-tag">Desktop</span>
+    </div>
+    <div class="showcase-media desktop-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_members_page.png" alt="Members page final desktop screen">
+    </div>
+    <p class="showcase-desc"><strong>Member Bios:</strong> Detailed singer profiles with voice parts, majors, hometowns, and executive board titles.</p>
+  </div>
+
+  <!-- Screen 3 -->
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">03 · Concerts &amp; Media</h3>
+      <span class="showcase-tag">Desktop</span>
+    </div>
+    <div class="showcase-media desktop-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_concert_page.png" alt="Concert page final desktop screen">
+    </div>
+    <p class="showcase-desc"><strong>Performance Hub:</strong> Upcoming campus show dates, venue locations, ticket links, and embedded YouTube concert videos.</p>
+  </div>
+
+  <!-- Screen 4 -->
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">04 · Auditions &amp; FAQ</h3>
+      <span class="showcase-tag">Desktop</span>
+    </div>
+    <div class="showcase-media desktop-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_desktop_audition_page.png" alt="Audition page final desktop screen">
+    </div>
+    <p class="showcase-desc"><strong>Prospective Hub:</strong> Audition schedule, vocal range requirements, preparation advice, and interactive FAQ accordions.</p>
+  </div>
+</div>
+
+<!-- ================ 09. FINAL MOBILE SCREENS ================ -->
+<article class="reading" id="mobile-design">
+  <h2>09. Responsive Mobile Experience</h2>
+  <p>Because the vast majority of student concert-goers check event locations and audition details on their phones, we engineered a mobile-first responsive experience tailored for handheld screens.</p>
+</article>
+
+<div class="showcase-grid g4">
+  <!-- Mobile 1 -->
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">01 · About</h3>
+      <span class="showcase-tag">Mobile</span>
+    </div>
+    <div class="showcase-media phone-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_mobile_about_page.png" alt="About page mobile screen">
+    </div>
+    <p class="showcase-desc">Mobile-optimized carousel and clean stacked intro.</p>
+  </div>
+
+  <!-- Mobile 2 -->
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">02 · Members</h3>
+      <span class="showcase-tag">Mobile</span>
+    </div>
+    <div class="showcase-media phone-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_mobile_members_page.png" alt="Members page mobile screen">
+    </div>
+    <p class="showcase-desc">Touch-friendly member cards and expandable bios.</p>
+  </div>
+
+  <!-- Mobile 3 -->
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">03 · Concerts</h3>
+      <span class="showcase-tag">Mobile</span>
+    </div>
+    <div class="showcase-media phone-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_mobile_concert_page.png" alt="Concert page mobile screen">
+    </div>
+    <p class="showcase-desc">Instant ticket links, calendar dates, and embedded clips.</p>
+  </div>
+
+  <!-- Mobile 4 -->
+  <div class="showcase-card">
+    <div class="showcase-head">
+      <h3 class="showcase-title">04 · Audition</h3>
+      <span class="showcase-tag">Mobile</span>
+    </div>
+    <div class="showcase-media phone-media">
+      <img src="uploads/Website%20for%20Less%20Than%20Three%20A%20Cappella/finished_mobile_audition_page.png" alt="Audition page mobile screen">
+    </div>
+    <p class="showcase-desc">Step-by-step audition sign-up and tap-to-expand FAQs.</p>
+  </div>
+</div>
+
+<!-- ================ 10. REFLECTION ================ -->
+<article class="reading" id="reflection">
+  <h2>10. Reflection &amp; Engineering Takeaways</h2>
+  <p>This project was an invaluable masterclass in collaborating on production code with a multi-disciplinary team via <strong>GitHub version control</strong>—managing branches, resolving merge conflicts, and conducting peer code reviews.</p>
+  <p>Crucially, it reinforced the discipline of balancing client requirements against end-user needs. By validating our assumptions through card sorting and user interviews rather than relying on guesswork, we delivered a polished digital experience that fulfilled the client's operational vision and resonated with Cornell's student community.</p>
 </article>
 
 <div class="back-link">
-  <a href="Portfolio.dc.html#work">← Back to all projects</a>
+  <a href="index.html#work">← Back to all projects</a>
 </div>
 
+<!-- ================ NEXT PROJECT STRIP ================ -->
 <section class="next-project">
-  <div class="side">Continue reading</div>
-  <a class="link" href="Case-Ithaca.dc.html">
+  <div class="side">Continue Reading</div>
+  <a class="link" href="Case-DoSomething.dc.html">
     <div>
-      <div class="no">Next · Case Study 01</div>
-      <div class="title">Ithaca Hunt App</div>
+      <div class="no">Case Study 01</div>
+      <div class="title">DoSomething.org UX Redesign</div>
     </div>
-    <span class="arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10m0 0L9.5 4.5M14 9l-4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <span class="arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10m0 0L9.5 4.5M14 9l-4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
   </a>
 </section>
 
@@ -313,5 +785,6 @@
   <div>© 2026 Rica Craig — Design Engineer &amp; Product Strategist</div>
   <div>Made with <span class="heart">✿</span> in New York</div>
 </footer>
+
 </body>
 </html>

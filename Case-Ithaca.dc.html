@@ -3,379 +3,837 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ithaca Hunt — Case Study by Rica Craig</title>
+  <title>Ithaca Hunt Mobile App Case Study — Rica Craig</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#FFFFFF; --band:#FCE8ED; --band-2:#F9DDE4;
-      --ink:#1F1F1F; --ink-2:#5A5A5A; --ink-3:#8E8E8E;
-      --rose:#D63F7D; --border:#EAEAEA;
+      --bg: #FFFFFF;
+      --canvas: #FCF8F7;
+      --band: #FDF0F4;
+      --band-2: #F8E2E9;
+      --ink: #1E2238;
+      --ink-2: #55586D;
+      --ink-3: #888B9E;
+      --rose: #C05C87;
+      --rose-dark: #A33E6A;
+      --rose-light: #FCE4EC;
+      --emerald: #4E8F6C;
+      --marigold: #D19E2F;
+      --border: #E8E8EE;
+      --border-soft: rgba(42,47,74,.08);
+      --shadow-sm: 0 4px 12px rgba(30,34,56,.04);
+      --shadow-md: 0 12px 32px -12px rgba(30,34,56,.08);
+      --shadow-lg: 0 24px 48px -16px rgba(30,34,56,.12);
     }
-    html,body{ background:var(--bg); }
-    body{ margin:0; font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; color:var(--ink); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
-    h1,h2,h3,h4,h5,h6{ font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; }
-    a{ color:var(--ink); text-decoration:none; transition:color 160ms; }
-    a:hover{ color:var(--rose); }
-    ::selection{ background:var(--rose); color:#FFF; }
-    .mono{ font-family:"IBM Plex Mono", ui-monospace, monospace; letter-spacing:.08em; text-transform:uppercase; font-size:11px; font-weight:500; color:var(--ink-2); }
+    
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
+    body{
+      margin: 0;
+      background: var(--bg);
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a{ color: var(--ink); text-decoration: none; transition: color 160ms ease; }
+    a:hover{ color: var(--rose); }
+    ::selection{ background: var(--rose); color: #FFF; }
 
-    .nav{ position:sticky; top:0; z-index:30; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:20px 44px; background:rgba(255,255,255,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
-    .brand{ font-weight:700; font-size:17px; letter-spacing:-0.005em; color:var(--ink); }
-    .brand .flourish{ color:var(--rose); margin:0 4px; }
-    .brand em{ font-style:normal; color:var(--rose); font-weight:600; }
-    .navlinks{ display:flex; gap:32px; justify-content:center; }
-    .navlinks a{ font-size:13px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; padding:6px 0; position:relative; color:var(--ink-2); transition:color 160ms ease; }
-    .navlinks a.on{ color:var(--ink); }
-    .navlinks a.on::after{ content:""; position:absolute; left:50%; bottom:-3px; width:16px; height:2px; background:var(--rose); transform:translateX(-50%); border-radius:99px; }
-    .navlinks a:hover{ color:var(--rose); }
-    .navright{ display:flex; gap:14px; justify-content:flex-end; align-items:center; font-size:13px; color:var(--ink-2); }
+    /* ============ NAV ============ */
+    .nav{
+      position: sticky; top: 0; z-index: 40;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      padding: 18px 44px;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand{ font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--ink); }
+    .brand .flourish{ color: var(--rose); margin: 0 3px; font-size: 14px; }
+    .brand em{ font-style: italic; color: var(--rose); font-weight: 500; }
+    .navlinks{ display: flex; gap: 32px; justify-content: center; }
+    .navlinks a{
+      font-size: 12.5px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      padding: 6px 0; position: relative; color: var(--ink-2); transition: color 160ms ease;
+    }
+    .navlinks a.on{ color: var(--ink); font-weight: 600; }
+    .navlinks a.on::after{
+      content: ""; position: absolute; left: 50%; bottom: -3px; width: 18px; height: 2.5px;
+      background: var(--rose); transform: translateX(-50%); border-radius: 99px;
+    }
+    .navlinks a:hover{ color: var(--rose); }
+    .navright{
+      display: flex; gap: 14px; justify-content: flex-end; align-items: center;
+      font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--ink-3);
+    }
+    .resume-pill{
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 5px 12px; border-radius: 99px; background: var(--ink);
+      color: #FFF !important; font-family: "IBM Plex Mono", monospace; font-size: 10.5px;
+      letter-spacing: .08em; text-transform: uppercase; font-weight: 600;
+      transition: all 160ms ease; text-decoration: none !important;
+    }
+    .resume-pill:hover{
+      background: var(--rose); color: #FFF !important; transform: translateY(-1px);
+    }
 
-    .band.hero-band{ background:var(--band); padding:28px 44px 32px; margin:0; border-radius:0; max-width:none; }
-    .hero-strip{ max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; font-family:"IBM Plex Mono", monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-2); }
-    .hero-strip a:hover{ color:var(--rose); }
-    .hero-band .hero-media{ max-width:1000px; margin:20px auto 0; }
-    .hero-band .hero-single{ background:#fff; border-radius:6px; overflow:hidden; box-shadow:0 12px 40px -20px rgba(0,0,0,.2); aspect-ratio:16/9; }
+    /* ============ HERO BANNER ============ */
+    .hero-band{
+      background: linear-gradient(180deg, #FDF1F5 0%, #FAF5F7 100%);
+      padding: 32px 44px 44px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-strip{
+      max-width: 960px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--ink-2);
+    }
+    .hero-strip a{
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 99px; background: rgba(255,255,255,.8);
+      border: 1px solid var(--border-soft); transition: all 160ms ease;
+    }
+    .hero-strip a:hover{ background: #FFF; color: var(--rose); transform: translateX(-2px); }
+    .hero-media{ max-width: 820px; margin: 24px auto 0; }
+    .hero-single{
+      background: #FFF; border-radius: 16px; overflow: hidden;
+      box-shadow: var(--shadow-lg); border: 1px solid var(--border-soft);
+      aspect-ratio: 16 / 10; max-height: 480px; display: flex; align-items: center; justify-content: center;
+    }
+    .hero-single img{ width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    .title-block{ max-width:660px; margin:56px auto 0; padding:0 32px; }
-    .title-block h1{ font-size:44px; font-weight:700; letter-spacing:-0.02em; margin:0; line-height:1.05; }
-    .title-block .date{ color:var(--ink-3); margin-top:10px; font-size:15px; }
-    .title-block .tags{ margin-top:16px; display:flex; flex-wrap:wrap; gap:6px; }
-    .title-block .tag{ padding:5px 12px; border-radius:99px; font-size:12px; letter-spacing:.02em; font-weight:500; background:var(--band); color:#8A2B4E; border:1px solid transparent; }
+    /* ============ TITLE & META ============ */
+    .title-block{ max-width: 820px; margin: 56px auto 0; padding: 0 32px; }
+    .kicker{
+      font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 12px;
+    }
+    .title-block h1{
+      font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 600;
+      letter-spacing: -0.02em; margin: 0; line-height: 1.12; color: var(--ink);
+    }
+    .title-block h1 em{ font-style: italic; color: var(--rose); font-weight: 500; }
+    .title-block .subtitle{
+      font-size: 18px; line-height: 1.55; color: var(--ink-2); margin-top: 14px;
+    }
+    .title-block .tags{ margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .title-block .tag{
+      padding: 5px 12px; border-radius: 99px; font-family: "IBM Plex Mono", monospace;
+      font-size: 11px; letter-spacing: .04em; font-weight: 600;
+      background: var(--band); color: var(--rose-dark); border: 1px solid rgba(192,92,135,.2);
+      text-transform: uppercase;
+    }
 
-    .reading{ max-width:660px; margin:0 auto; padding:24px 32px 8px; }
-    .reading h2{ font-size:22px; font-weight:700; letter-spacing:-0.005em; margin:48px 0 14px; line-height:1.3; color:var(--rose); }
-    .reading h2:first-child{ margin-top:0; }
-    .reading h3{ font-size:15.5px; font-weight:700; margin:24px 0 6px; }
-    .reading p{ font-size:15px; line-height:1.7; color:var(--ink); margin:0 0 14px; text-wrap:pretty; }
-    .reading p strong{ font-weight:700; }
-    .reading ul, .reading ol{ margin:8px 0 20px; padding-left:22px; }
-    .reading ul li, .reading ol li{ font-size:15px; line-height:1.7; margin-bottom:10px; }
-    .reading ul li::marker, .reading ol li::marker{ color:var(--rose); }
-    .reading ol li strong{ display:inline; }
-    .reading .rose{ color:var(--rose); }
+    .meta-grid{
+      max-width: 820px; margin: 36px auto 0; padding: 24px 32px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .meta-grid .cell .k{
+      font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; font-weight: 600;
+    }
+    .meta-grid .cell .v{ font-size: 14.5px; color: var(--ink); line-height: 1.4; font-weight: 500; }
+    .meta-grid .cell.tools .pills{ display: flex; flex-wrap: wrap; gap: 5px; }
+    .tool-pill{
+      padding: 4px 9px; border-radius: 99px; font-family: "IBM Plex Mono", monospace;
+      font-size: 10px; letter-spacing: .05em; font-weight: 600; background: var(--ink);
+      color: #FFF; text-transform: uppercase;
+    }
+    .tool-pill.alt{ background: #FFF; color: var(--ink); border: 1px solid var(--border); }
 
-    /* Video slot */
-    .video-wrap{ max-width:800px; margin:16px auto 8px; padding:0 32px; }
-    .video-slot{ position:relative; aspect-ratio:16/9; background:#111; border-radius:8px; overflow:hidden; box-shadow:0 12px 40px -20px rgba(0,0,0,.35); }
-    .video-slot video, .video-slot iframe{ display:block; width:100%; height:100%; object-fit:contain; background:#000; position:relative; z-index:2; border:0; }
-    .video-slot .drop-hint{ position:absolute; inset:0; z-index:1; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; background:linear-gradient(180deg, rgba(0,0,0,.4), rgba(0,0,0,.65)); transition:background 160ms, opacity 160ms; text-align:center; }
-    .video-slot.has-video .drop-hint{ display:none; }
-    .video-slot.drag .drop-hint{ background:rgba(214,63,125,.55); }
-    .video-slot .replace-btn{ position:absolute; top:10px; right:10px; z-index:3; display:none; padding:6px 12px; border-radius:99px; background:rgba(0,0,0,.55); color:#fff; font:500 11px/1 "IBM Plex Mono", monospace; letter-spacing:.08em; text-transform:uppercase; border:1px solid rgba(255,255,255,.35); cursor:pointer; backdrop-filter:blur(4px); transition:background 160ms; }
-    .video-slot .replace-btn:hover{ background:var(--rose); border-color:var(--rose); }
-    .video-slot.has-video .replace-btn{ display:inline-flex; align-items:center; gap:6px; }
-    .video-slot .drop-inner{ padding:20px; }
-    .video-slot .drop-icon{ width:56px; height:56px; border-radius:99px; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-size:22px; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.35); }
-    .video-slot .drop-title{ font-size:15px; font-weight:600; }
-    .video-slot .drop-sub{ font-size:12.5px; opacity:.75; margin-top:4px; }
+    /* ============ EXECUTIVE SUMMARY / RECRUITER TL;DR ============ */
+    .tldr-card{
+      max-width: 820px; margin: 40px auto 0; padding: 32px 36px;
+      background: linear-gradient(145deg, #FFF9FB 0%, #FDF2F6 100%);
+      border-radius: 18px; border: 1px solid rgba(192, 92, 135, .2);
+      box-shadow: var(--shadow-sm);
+    }
+    .tldr-head{
+      display: flex; align-items: center; gap: 8px; font-family: "IBM Plex Mono", monospace;
+      font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--rose);
+      font-weight: 600; margin-bottom: 18px;
+    }
+    .tldr-head .dot{ width: 8px; height: 8px; border-radius: 99px; background: var(--rose); }
+    .tldr-grid{
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .tldr-col h4{ font-size: 13.5px; font-weight: 700; margin: 0 0 6px; color: var(--ink); text-transform: uppercase; letter-spacing: .04em; }
+    .tldr-col p{ font-size: 14px; line-height: 1.55; color: var(--ink-2); margin: 0; }
 
-    .meta-grid{ max-width:660px; margin:24px auto 8px; padding:24px 32px; display:grid; grid-template-columns:repeat(2,1fr); gap:24px 40px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-    .meta-grid .cell .k{ font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--rose); margin-bottom:6px; font-weight:600; }
-    .meta-grid .cell .v{ font-size:15px; color:var(--ink); line-height:1.4; font-weight:500; }
-    .meta-grid .cell.tools .pills{ display:flex; flex-wrap:wrap; gap:6px; }
-    .tool-pill{ padding:5px 10px; border-radius:99px; font-family:"IBM Plex Mono", monospace; font-size:10.5px; letter-spacing:.05em; font-weight:500; background:#111; color:#FFF; border:none; text-transform:uppercase; }
-    .tool-pill.alt{ background:#fff; color:#111; border:1px solid var(--border); }
+    /* ============ SECTION TOC BAR ============ */
+    .toc-bar{
+      position: sticky; top: 61px; z-index: 30;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-soft); padding: 12px 32px;
+      margin: 40px auto 0;
+    }
+    .toc-inner{
+      max-width: 820px; margin: 0 auto;
+      display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+    }
+    .toc-inner::-webkit-scrollbar{ display: none; }
+    .toc-link{
+      flex: none; padding: 6px 14px; border-radius: 99px; background: #F6F6FA;
+      font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink-2); font-weight: 500; transition: all 160ms ease;
+    }
+    .toc-link:hover{ background: var(--rose); color: #FFF; }
 
-    .band{ max-width:960px; margin:36px auto; padding:44px 56px; background:var(--band); border-radius:2px; }
-    .band .grid{ display:grid; gap:16px; align-items:end; }
-    .band .grid.g2{ grid-template-columns:repeat(2,1fr); }
-    .band .grid.g3{ grid-template-columns:repeat(3,1fr); }
-    .band .grid.g4{ grid-template-columns:repeat(4,1fr); }
-    .band .media{ background:#fff; border-radius:6px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,.06); }
-    .band .media.phone{ aspect-ratio:9/19; }
-    .band .media.wide{ aspect-ratio:16/10; }
-    .band .media.tall{ aspect-ratio:3/4; }
-    .band .media.square{ aspect-ratio:1/1; }
-    .band .media.storyboard{ aspect-ratio:5/3; }
-    .band .caption{ text-align:center; font-style:italic; color:var(--ink-3); margin-top:20px; font-size:13.5px; }
-    .band .single{ max-width:520px; margin:0 auto; }
-    .band .single.wide{ max-width:800px; }
+    /* ============ EDITORIAL READING SECTION ============ */
+    .reading{ max-width: 820px; margin: 0 auto; padding: 48px 32px 12px; }
+    .reading h2{
+      font-size: 26px; font-weight: 600; letter-spacing: -0.015em; margin: 48px 0 16px;
+      line-height: 1.25; color: var(--ink);
+    }
+    .reading h2:first-child{ margin-top: 0; }
+    .reading h3{ font-size: 18px; font-weight: 600; margin: 28px 0 8px; color: var(--ink); }
+    .reading p{
+      font-size: 16px; line-height: 1.75; color: var(--ink-2); margin: 0 0 18px; text-wrap: pretty;
+    }
+    .reading p strong{ color: var(--ink); font-weight: 600; }
+    .reading ul, .reading ol{ margin: 12px 0 24px; padding-left: 24px; }
+    .reading ul li, .reading ol li{ font-size: 15.5px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+    .reading ul li::marker{ color: var(--rose); }
+    .reading .rose{ color: var(--rose); font-weight: 500; }
+    .reading blockquote{
+      margin: 32px 0; padding: 22px 28px; border-left: 4px solid var(--rose);
+      background: linear-gradient(90deg, #FDF0F4 0%, #FAF5F7 100%);
+      border-radius: 0 12px 12px 0; font-size: 18px; line-height: 1.55;
+      font-style: italic; font-weight: 500; color: var(--ink);
+    }
 
-    /* Numbered final-prototype captions */
-    .final-grid{ max-width:960px; margin:36px auto; padding:44px 56px; background:var(--band); border-radius:2px; display:grid; grid-template-columns:repeat(3,1fr); gap:36px 24px; }
-    .final-cell .media{ background:#fff; border-radius:6px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,.06); aspect-ratio:9/19; }
-    .final-cell .cap{ margin-top:14px; font-size:13.5px; line-height:1.5; color:var(--ink-2); }
+    /* ============ VISUAL MEDIA BANDS ============ */
+    .band{
+      max-width: 960px; margin: 36px auto; padding: 36px 40px;
+      background: var(--canvas); border-radius: 20px; border: 1px solid var(--border-soft);
+    }
+    .band .media{
+      background: #FFF; border-radius: 12px; overflow: hidden;
+      box-shadow: var(--shadow-md); border: 1px solid var(--border-soft);
+      max-height: 440px; display: flex; align-items: center; justify-content: center;
+    }
+    .band .media img{ display: block; width: auto; max-width: 100%; max-height: 440px; object-fit: contain; margin: 0 auto; }
+    .band .caption{
+      text-align: center; font-style: italic; color: var(--ink-3); margin-top: 18px;
+      font-size: 14px; line-height: 1.4;
+    }
+    .band .caption a{ color: var(--rose); border-bottom: 1px solid var(--rose); }
+    .band .single.wide{ max-width: 760px; margin: 0 auto; }
 
-    /* Storyboard-task item — task label + storyboard image */
-    .task{ max-width:960px; margin:24px auto; padding:0 32px; }
-    .task .label{ font-size:15px; color:var(--ink); margin-bottom:12px; line-height:1.5; }
-    .task .label .n{ font-family:"IBM Plex Mono", monospace; font-size:12px; color:var(--rose); font-weight:600; margin-right:8px; }
-    .task .band{ margin:0; padding:32px 40px; }
+    /* ============ THEMES / INSIGHTS GRID ============ */
+    .themes-grid{
+      max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+    }
+    .theme{
+      background: #FFF; border: 1px solid var(--border); border-radius: 14px;
+      padding: 24px 22px; box-shadow: var(--shadow-sm);
+    }
+    .theme .num{
+      font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 8px;
+    }
+    .theme h3{ font-size: 16px; font-weight: 600; margin: 0 0 10px; line-height: 1.35; color: var(--ink); }
+    .theme p{ font-size: 14px; line-height: 1.6; color: var(--ink-2); margin: 0; }
 
-    .insights{ max-width:820px; margin:16px auto 24px; padding:0 32px; display:grid; grid-template-columns:1fr; gap:18px; }
-    .insight{ padding:20px 22px; background:#fff; border:1px solid var(--border); border-radius:8px; }
-    .insight h3{ font-size:15.5px; font-weight:700; margin:0 0 6px; display:flex; align-items:baseline; gap:10px; }
-    .insight h3 .n{ font-family:"IBM Plex Mono", monospace; font-size:11px; color:var(--rose); font-weight:600; letter-spacing:.06em; }
-    .insight p{ font-size:14.5px; line-height:1.6; color:var(--ink-2); margin:0; }
+    /* ============ FIGMA EMBED CONTAINER ============ */
+    .figma-embed{
+      max-width: 820px; margin: 0 auto; aspect-ratio: 16 / 9; background: #FFF;
+      border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--border-soft);
+      position: relative;
+    }
+    .figma-embed iframe{ display: block; width: 100%; height: 100%; border: 0; }
 
-    .back-link{ max-width:660px; margin:32px auto 0; padding:0 32px; }
-    .back-link a{ font-size:14px; color:var(--ink-2); border-bottom:1px solid var(--border); padding-bottom:2px; }
-    .back-link a:hover{ color:var(--rose); border-color:var(--rose); }
+    /* ============ PERSONA CARD ============ */
+    .persona-card{
+      max-width: 820px; margin: 0 auto 24px; background: #FFF; border-radius: 16px;
+      padding: 28px 32px; box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+    }
+    .persona-card h3{ font-size: 19px; font-weight: 700; margin: 0 0 6px; color: var(--ink); }
+    .persona-card p, .persona-card li{ font-size: 14.5px; line-height: 1.6; color: var(--ink-2); }
+    .persona-card .k{
+      font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--rose); margin-top: 16px; margin-bottom: 4px; font-weight: 600;
+    }
+    .persona-card .k:first-child{ margin-top: 0; }
+    .persona-card ul{ margin: 4px 0 8px 18px; padding: 0; }
 
-    .next-project{ max-width:1100px; margin:80px auto 0; padding:36px 44px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; }
-    .next-project .side{ font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); }
-    .next-project .link{ display:flex; align-items:center; gap:20px; transition:color 200ms; }
-    .next-project .link:hover{ color:var(--rose); }
-    .next-project .link .no{ font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); }
-    .next-project .link .title{ font-size:24px; font-weight:700; letter-spacing:-0.005em; line-height:1.15; color:inherit; }
-    .next-project .arrow{ width:44px; height:44px; border-radius:99px; border:1.5px solid var(--ink); display:inline-flex; align-items:center; justify-content:center; transition:background 200ms,color 200ms,border-color 200ms,transform 200ms; color:var(--ink); flex:none; }
-    .next-project .link:hover .arrow{ background:var(--rose); border-color:var(--rose); color:#fff; transform:translateX(3px); }
+    /* ============ STORYBOARD TASK CARDS ============ */
+    .task-card{
+      max-width: 820px; margin: 28px auto 0;
+      background: #FFF; border: 1px solid var(--border); border-radius: 18px;
+      box-shadow: var(--shadow-sm); overflow: hidden;
+    }
+    .task-head{
+      padding: 18px 24px; background: linear-gradient(90deg, #FDF1F5 0%, #FFF 100%);
+      border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .task-title-wrap{ display: flex; align-items: center; gap: 12px; }
+    .task-num{
+      width: 30px; height: 30px; border-radius: 99px; background: var(--rose); color: #FFF;
+      display: inline-flex; align-items: center; justify-content: center; font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; flex: none;
+    }
+    .task-head h3{ font-size: 16.5px; font-weight: 600; margin: 0; color: var(--ink); }
+    .task-tag{
+      font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .08em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 99px; background: #FFF;
+      border: 1px solid var(--border); color: var(--ink-2); font-weight: 600;
+    }
+    .task-body{ padding: 24px; }
+    .task-media{
+      background: #FAFAFC; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-sm); margin-bottom: 16px; max-width: 680px; margin-left: auto; margin-right: auto;
+      max-height: 380px; display: flex; align-items: center; justify-content: center;
+    }
+    .task-media img{ display: block; width: auto; max-width: 100%; max-height: 380px; object-fit: contain; margin: 0 auto; }
+    .task-notes{ font-size: 14.5px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+    .task-notes strong{ color: var(--ink); }
 
-    .foot-strip{ margin-top:40px; padding:22px 44px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; color:var(--ink-3); font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
-    .foot-strip .heart{ color:var(--rose); }
-    .foot-strip a:hover{ color:var(--rose); }
+    /* ============ FINAL PROTOTYPE SHOWCASE GRID ============ */
+    .final-grid{
+      max-width: 1040px; margin: 36px auto; padding: 40px 36px;
+      background: var(--canvas); border-radius: 20px; border: 1px solid var(--border-soft);
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 24px;
+    }
+    .final-cell{
+      background: #FFF; border: 1px solid var(--border); border-radius: 16px;
+      padding: 16px 16px 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
+    }
+    .final-cell .media{
+      background: #FAFAFC; border-radius: 12px;
+      border: 1px solid var(--border-soft);
+      display: flex; align-items: center; justify-content: center;
+      padding: 12px 8px; margin-bottom: 14px; min-height: 360px;
+    }
+    .final-cell .media img{
+      width: auto; max-width: 100%; height: auto; max-height: 440px;
+      object-fit: contain; display: block; margin: 0 auto;
+    }
+    .final-cell .screen-title{
+      font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 4px;
+    }
+    .final-cell .cap{ font-size: 13.5px; line-height: 1.5; color: var(--ink-2); margin: 0; }
+
+    /* ============ INTERACTIVE VIDEO WALKTHROUGH ============ */
+    .video-section{
+      max-width: 960px; margin: 64px auto 0; padding: 36px;
+      background: linear-gradient(160deg, #FDF2F6 0%, #F5ECF4 100%);
+      border-radius: 24px; border: 1px solid rgba(192, 92, 135, .25);
+      box-shadow: var(--shadow-md);
+    }
+    .video-header{
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 24px; gap: 20px; flex-wrap: wrap;
+    }
+    .video-title h2{
+      font-size: 24px; font-weight: 700; letter-spacing: -0.015em; margin: 0 0 6px; color: var(--ink);
+    }
+    .video-title p{
+      font-size: 15px; color: var(--ink-2); margin: 0; line-height: 1.4;
+    }
+    .video-btn{
+      display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px;
+      border-radius: 99px; background: var(--ink); color: #FFF; font-size: 13.5px; font-weight: 600;
+      letter-spacing: .02em; transition: all 180ms ease; box-shadow: var(--shadow-sm);
+    }
+    .video-btn:hover{ background: var(--rose); color: #FFF; transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .video-btn svg{ transition: transform 160ms ease; }
+    .video-btn:hover svg{ transform: translateX(3px) translateY(-3px); }
+    .video-frame{
+      position: relative; width: 100%; aspect-ratio: 16 / 9;
+      background: #000; border-radius: 14px; overflow: hidden;
+      box-shadow: var(--shadow-lg); border: 1px solid rgba(30,34,56,.1);
+    }
+    .video-frame iframe{
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+    }
+
+    /* ============ FOOTER & NEXT PROJECT ============ */
+    .back-link{ max-width: 820px; margin: 48px auto 0; padding: 0 32px; }
+    .back-link a{
+      font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--ink-2); border-bottom: 1.5px solid var(--border);
+      padding-bottom: 4px; font-weight: 500;
+    }
+    .back-link a:hover{ color: var(--rose); border-color: var(--rose); }
+
+    .next-project{
+      max-width: 1040px; margin: 80px auto 0; padding: 40px 48px;
+      background: #FAF7FA; border-radius: 20px; border: 1px solid var(--border-soft);
+      display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
+    }
+    .next-project .side{
+      font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ink-3); font-weight: 600;
+    }
+    .next-project .link{ display: flex; align-items: center; gap: 24px; }
+    .next-project .link .no{
+      font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--rose); font-weight: 600;
+    }
+    .next-project .link .title{
+      font-size: 26px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.15; color: var(--ink);
+    }
+    .next-project .arrow{
+      width: 48px; height: 48px; border-radius: 99px; border: 1.5px solid var(--ink);
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: all 200ms ease; color: var(--ink); flex: none;
+    }
+    .next-project .link:hover .arrow{
+      background: var(--rose); border-color: var(--rose); color: #FFF; transform: translateX(4px);
+    }
+
+    .foot-strip{
+      margin-top: 64px; padding: 24px 44px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;
+      color: var(--ink-3); font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .foot-strip .heart{ color: var(--rose); }
+
+    @media (max-width: 860px){
+      .meta-grid{ grid-template-columns: repeat(2, 1fr); }
+      .tldr-grid{ grid-template-columns: 1fr; }
+      .themes-grid{ grid-template-columns: 1fr; }
+      .persona-row{ grid-template-columns: 1fr; }
+      .final-grid{ grid-template-columns: 1fr; padding: 24px 20px; }
+      .band{ padding: 28px 20px; }
+      .video-section{ padding: 24px 20px; }
+      .nav{ padding: 16px 24px; }
+      .hero-band{ padding: 24px 20px 36px; }
+    }
   </style>
 </head>
 <body>
+
+<!-- ================ TOP NAVIGATION ================ -->
 <nav class="nav">
-  <a href="Portfolio.dc.html" class="brand">Rica <span class="flourish">✿</span> <em>Craig</em></a>
+  <a href="index.html" class="brand">Rica <span class="flourish">✿</span> <em>Craig</em></a>
   <div class="navlinks">
-    <a href="Portfolio.dc.html#work" class="on">Work</a>
-    <a href="About.dc.html">About</a>
-    <a href="Portfolio.dc.html#toolkit">Toolkit</a>
-    <a href="Portfolio.dc.html#contact">Contact</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#work" class="on">Work</a>
+    <a href="index.html#toolkit">Toolkit</a>
+    <a href="index.html#contact">Contact</a>
   </div>
-  <div class="navright">Case Study 01, 2022</div>
+  <div class="navright">
+    <a href="Rica_Craig_Resume.pdf" target="_blank" rel="noopener" class="resume-pill">Resume ↗</a>
+  </div>
 </nav>
 
-<!-- HERO BAND -->
-<section class="band hero-band">
+<!-- ================ HERO MEDIA ================ -->
+<section class="hero-band">
   <div class="hero-strip">
-    <span>Rica Craig</span>
-    <a href="Portfolio.dc.html#work">Back to work →</a>
+    <span>Ithaca Hunt · Mobile App UX</span>
+    <a href="index.html#work">← Back to work</a>
   </div>
   <div class="hero-media">
-    <div class="hero-single"><img src="uploads/Ithaca%20Hunt%20App/Screen_Shot_2022-12-15_at_2.48.29_AM.png" alt="Drop the phone-over-waterfall hero image" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+    <div class="hero-single">
+      <img src="uploads/Ithaca%20Hunt%20App/Screen_Shot_2022-12-15_at_2.48.29_AM.png" alt="Ithaca Hunt App interactive mobile mockup">
+    </div>
   </div>
 </section>
 
-<!-- TITLE + TAGS -->
+<!-- ================ TITLE & METADATA ================ -->
 <section class="title-block">
-  <h1>Ithaca Hunt App</h1>
+  <div class="kicker">Cornell University · INFO 3450 UX Design · Fall 2022</div>
+  <h1>Helping First-Year Students Discover <em>Their</em> Ithaca</h1>
+  <p class="subtitle">An end-to-end UX research and interaction design project empowering first-year college students to explore off-campus activities that match their interests, schedules, and transit routes.</p>
   <div class="tags">
     <span class="tag">UX Design</span>
     <span class="tag">UX Research</span>
     <span class="tag">UI Design</span>
+    <span class="tag">Contextual Inquiries</span>
+    <span class="tag">Storyboarding</span>
     <span class="tag">Figma</span>
   </div>
 </section>
 
-<!-- META GRID (My Role, Timeline, Tools Used, The Objective) -->
 <div class="meta-grid">
   <div class="cell">
-    <div class="k">My Role</div>
-    <div class="v">UX Designer, UX Researcher &amp; Prototyper</div>
+    <div class="k">Role &amp; Scope</div>
+    <div class="v">UX Designer, Researcher &amp; Prototyper</div>
   </div>
   <div class="cell">
-    <div class="k">Timeline</div>
-    <div class="v">August 2022 – December 2022 · Team of 4</div>
+    <div class="k">Timeline &amp; Team</div>
+    <div class="v">Aug 2022 – Dec 2022 · Team of 4</div>
   </div>
   <div class="cell tools">
     <div class="k">Tools Used</div>
     <div class="pills">
       <span class="tool-pill">Figma</span>
       <span class="tool-pill alt">Miro</span>
+      <span class="tool-pill alt">FigJam</span>
     </div>
   </div>
   <div class="cell">
     <div class="k">The Objective</div>
-    <div class="v">Design a way for first-years to find off-campus events that match interests, schedules, and commute.</div>
+    <div class="v">Help first-years discover off-campus events matching interests, class schedules &amp; TCAT transit.</div>
   </div>
 </div>
 
-<!-- OVERVIEW -->
-<article class="reading">
-  <h2>Overview</h2>
-  <p>When first-year students arrive in Ithaca, they adjust to a new environment and experience a lot for the first time. Many first-year students come outside of Ithaca and do not know how to get around outside the campus. This project aims to research and offer a solution for this problem, specifically targeting first-year students from outside of Ithaca. We aim to tackle the challenges our interviewees experienced in user research by designing a solution that helps them find off-campus events that match their interests efficiently, fit their schedules, and are convenient in terms of commute.</p>
-</article>
-
-<!-- FINAL PROTOTYPE VIDEO -->
-<article class="reading">
-  <h2>Final Prototype</h2>
-</article>
-<div class="video-wrap">
-  <div class="video-slot">
-    <iframe src="https://www.youtube.com/embed/gy902NGWAQA" title="Ithaca Hunt App — Final Prototype" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+<!-- ================ RECRUITER TL;DR QUICK SCAN ================ -->
+<div class="tldr-card">
+  <div class="tldr-head"><span class="dot"></span> Executive Summary / Quick Scan</div>
+  <div class="tldr-grid">
+    <div class="tldr-col">
+      <h4>The Challenge</h4>
+      <p>First-year students unfamiliar with Ithaca face fragmented event info, busy academic schedules, and transit confusion, leading them to feel disconnected outside campus.</p>
+    </div>
+    <div class="tldr-col">
+      <h4>My Approach</h4>
+      <p>Led contextual inquiry interviews with 4 freshmen, synthesized activity notes via FigJam affinity diagramming, built archetypal personas, developed 4 task storyboards, and iterated paper sketches into Figma prototypes.</p>
+    </div>
+    <div class="tldr-col">
+      <h4>Key Outcome</h4>
+      <p>Designed a high-fidelity iOS mobile app with interest matching, schedule-aware recommendations, verified student reviews, TCAT route finder, and social messaging.</p>
+    </div>
   </div>
 </div>
 
-<!-- UNDERSTANDING -->
-<article class="reading">
-  <h2>Understanding the Experiences of First-Year Students</h2>
-  <p><strong>To understand how first-year students are adjusting to living in Ithaca, we started this project by conducting contextual interviews with 4 first-year students who have never lived or visited Ithaca before.</strong> We asked them about their background, their opinions on living in Ithaca, how they are currently exploring outside the campus, and what they hope to do in their free time in Ithaca. After each interview, the note-taker created <strong>activity notes</strong> based on the raw data, session summaries, recordings, and photos from the session.</p>
+<!-- ================ JUMP NAVIGATION ================ -->
+<div class="toc-bar">
+  <div class="toc-inner">
+    <a class="toc-link" href="#overview">Overview</a>
+    <a class="toc-link" href="#research">User Research</a>
+    <a class="toc-link" href="#insights">Affinity Insights</a>
+    <a class="toc-link" href="#persona">Persona</a>
+    <a class="toc-link" href="#brainstorming">Brainstorming</a>
+    <a class="toc-link" href="#storyboards">Storyboards</a>
+    <a class="toc-link" href="#prototypes">Prototype Drafts</a>
+    <a class="toc-link" href="#final-prototype">Final Prototype</a>
+    <a class="toc-link" href="#video-demo">Video Walkthrough</a>
+    <a class="toc-link" href="#reflection">Reflection</a>
+  </div>
+</div>
+
+<!-- ================ 01. OVERVIEW ================ -->
+<article class="reading" id="overview">
+  <h2>01. Overview &amp; Context</h2>
+  <p>When first-year students arrive in Ithaca, they adjust to an unfamiliar environment and experience living independently for the first time. Many freshmen come from outside of Ithaca and do not know how to navigate or get around beyond the immediate campus perimeter.</p>
+  <p>This project aims to research and deliver a comprehensive mobile solution for this problem, specifically targeting first-year students transitioning into Ithaca. We tackled the core challenges our interviewees experienced by designing a solution that helps them <strong>discover off-campus events that match their personal interests</strong>, <strong>fit seamlessly around their course schedules</strong>, and <strong>provide convenient commute and public transit guidance</strong>.</p>
+
+  <blockquote>
+    "How might we empower first-year students from outside Ithaca to effortlessly discover, schedule, and travel to off-campus events with their peers?"
+  </blockquote>
 </article>
 
-<!-- DATA ANALYSIS -->
-<article class="reading">
-  <h2>Data Analysis</h2>
-  <p>We created an <strong>affinity diagram</strong> to extract insights from our contextual interviews.</p>
+<!-- ================ 02. USER RESEARCH ================ -->
+<article class="reading" id="research">
+  <h2>02. Understanding First-Year Student Experiences</h2>
+  <p><strong>To understand how first-year students adjust to living in Ithaca, we conducted contextual interviews with 4 first-year students who had never lived in or visited Ithaca prior to college.</strong></p>
+  <p>We inquired about their background, their impressions of living in Ithaca, how they currently explore outside the campus perimeter, and what activities they hope to experience in their free time. Following each interview, the designated note-taker created detailed <strong>activity notes</strong> based on raw interview transcripts, session summaries, audio recordings, and contextual session photos.</p>
+</article>
+
+<!-- ================ 03. AFFINITY MAPPING & INSIGHTS ================ -->
+<article class="reading" id="insights">
+  <h2>03. Data Analysis &amp; Affinity Mapping</h2>
+  <p>We clustered the activity notes using an <strong>affinity diagram</strong> in FigJam and interpreted the emerging clusters to draw actionable behavioral insights from our user research data.</p>
+</article>
+
+<section class="band">
+  <div class="figma-embed">
+    <iframe src="https://embed.figma.com/board/RJJys2hE2wwDUNwCWWUoBt/Group-11-Affinity-Diagram?node-id=0-1&amp;embed-host=share" allowfullscreen=""></iframe>
+  </div>
+  <div class="caption">Live Figma / FigJam Board: Group 11 Affinity Diagram — <a href="https://www.figma.com/board/RJJys2hE2wwDUNwCWWUoBt/Group-11-Affinity-Diagram?node-id=0-1" target="_blank" rel="noopener">Open board in Figma ↗</a></div>
+</section>
+
+<section class="band">
+  <div class="themes-grid">
+    <div class="theme">
+      <div class="num">Insight 01 · Discovery</div>
+      <h3>Fragmented Information</h3>
+      <p>The methods freshmen use to discover event info are heavily fragmented. Students must search across multiple disconnected social platforms and bulletin boards to understand event schedules and specific activities.</p>
+    </div>
+    <div class="theme">
+      <div class="num">Insight 02 · Academics</div>
+      <h3>Limited Free Time</h3>
+      <p>Freshmen have difficulty carving out time for off-campus events because they are preoccupied with demanding course loads, prelim study sessions, and student organization commitments.</p>
+    </div>
+    <div class="theme">
+      <div class="num">Insight 03 · Commute</div>
+      <h3>TCAT Transit Confusion</h3>
+      <p>Most freshmen come from outside Ithaca and must learn the local TCAT bus system from scratch. Students experience navigation anxiety getting the timetable and stop info needed to travel off-campus confidently.</p>
+    </div>
+    <div class="theme">
+      <div class="num">Insight 04 · Social</div>
+      <h3>Shared Quality Time</h3>
+      <p>Freshmen place high value on quality time with friends. They seek meaningful connections in and out of class—peers to study with, dine with, and explore new local spots together.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================ 04. TARGET USER PERSONA ================ -->
+<article class="reading" id="persona">
+  <h2>04. Target User Persona</h2>
+  <p>Based on our interview synthesis and affinity mapping data, we synthesized our primary archetypal persona, <strong>Jess</strong>, to serve as the guiding anchor for all subsequent design decisions.</p>
+</article>
+
+<section class="band">
+  <div class="persona-card">
+    <div class="k">Persona Profile</div>
+    <h3>Jess, 18</h3>
+    <p>Cornell Freshman from outside Ithaca · Adjusting to campus life, eager to explore the Finger Lakes area while balancing rigorous academics.</p>
+    
+    <div class="k">Core Motivations</div>
+    <ul>
+      <li>Wants to discover unique nature experiences, gorges, and local downtown events.</li>
+      <li>Wants to coordinate outings with friends without conflicting with class schedules.</li>
+    </ul>
+
+    <div class="k">Key Frustrations</div>
+    <ul>
+      <li>Overwhelmed by scattered event announcements across disparate flyers and apps.</li>
+      <li>Unsure how to navigate local bus routes and timetable schedules to reach off-campus destinations.</li>
+    </ul>
+  </div>
+
+  <div class="figma-embed">
+    <iframe src="https://embed.figma.com/board/Xbd9nEiWy4q1rfgLq8Evuu/User-Persona?node-id=0-1&amp;embed-host=share" allowfullscreen=""></iframe>
+  </div>
+  <div class="caption">Live FigJam Board: User Persona for Jess — <a href="https://www.figma.com/board/Xbd9nEiWy4q1rfgLq8Evuu/User-Persona?node-id=0-1" target="_blank" rel="noopener">Open board in Figma ↗</a></div>
+</section>
+
+<!-- ================ 05. BRAINSTORMING & SKETCHING ================ -->
+<article class="reading" id="brainstorming">
+  <h2>05. Brainstorming &amp; Interface Explorations</h2>
+  <p>We conducted comparative research on existing event discovery and transit applications. Each teammate then generated <strong>15 diverse design concepts</strong> targeting the persona's goals.</p>
 </article>
 
 <section class="band">
   <div class="single wide">
-    <div class="media wide"><div style="width:100%;height:100%;min-height:200px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#888;font-size:13px;">Drop the Group 11 Affinity Diagram export (Figma)</div></div>
+    <div class="media wide">
+      <img src="uploads/Ithaca%20Hunt%20App/final_design_sketch_part_1.png" alt="Brainstorming sketches: 15 ideas per teammate">
+    </div>
   </div>
-  <div class="caption">Group 11 Affinity Diagram — <a style="border-bottom:1px solid var(--rose);color:var(--rose)" href="https://www.figma.com/board/RJJys2hE2wwDUNwCWWUoBt/Group-11-Affinity-Diagram?node-id=0-1" target="_blank" rel="noopener">open in Figma ↗</a></div>
+  <div class="caption">Collaborative ideation: 15 concept sketches per teammate addressing onboarding, discovery, and navigation.</div>
 </section>
 
 <article class="reading">
-  <p>We clustered the activity notes using an <strong>affinity diagram</strong> and interpreted the clusters to draw <strong>insights</strong> from the user research data.</p>
-</article>
-
-<div class="insights">
-  <div class="insight">
-    <h3><span class="n">01</span>Fragmented Information</h3>
-    <p>The methods of Freshmen learning about event information are fragmented. For now, they need to search on multiple platforms to understand the events and specific activities in large events comprehensively.</p>
-  </div>
-  <div class="insight">
-    <h3><span class="n">02</span>Not Enough Time for Off-Campus Events</h3>
-    <p>Freshmen have difficulty leaving time for enjoying events happening outside the campus because they are preoccupied with their academic commitments and clubs.</p>
-  </div>
-  <div class="insight">
-    <h3><span class="n">03</span>Freshmen often take TCAT buses to get around but are confused about how the system works.</h3>
-    <p>Most Cornell freshmen come from outside of Ithaca and must learn how to use the local bus system. Many new students have difficulty getting the necessary information to navigate the TCAT bus system properly.</p>
-  </div>
-  <div class="insight">
-    <h3><span class="n">04</span>Freshmen love spending quality time with friends.</h3>
-    <p>They want to have connections in and out of class — peers they could do schoolwork, eat, and hang out with. Whatever it is they are doing, they love being with others to spend that quality time.</p>
-  </div>
-</div>
-
-<article class="reading">
-  <p>Based on the interview data, we created a <strong>persona</strong> to serve as the focus of our design.</p>
+  <h3>Synthesizing into a First-Pass UI Sketch</h3>
+  <p>We synthesized the strongest concepts into a cohesive user flow and drew an end-to-end hand-drawn interface sketch covering onboarding, interest selection, personalized feeds, event details, community reviews, and user profiles.</p>
 </article>
 
 <section class="band">
   <div class="single wide">
-    <div class="media wide"><div style="width:100%;height:100%;min-height:200px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#888;font-size:13px;">Drop the User Persona export (Figma)</div></div>
+    <div class="media wide">
+      <img src="uploads/Ithaca%20Hunt%20App/final_design_sketch_part_2.png" alt="Hand-drawn UI sketches for welcome, recommendations, reviews, and profile">
+    </div>
   </div>
-  <div class="caption">Jess, 18 — Cornell freshman from outside Ithaca. <a style="border-bottom:1px solid var(--rose);color:var(--rose)" href="https://www.figma.com/board/Xbd9nEiWy4q1rfgLq8Evuu/User-Persona?node-id=0-1" target="_blank" rel="noopener">open in Figma ↗</a></div>
+  <div class="caption">First-pass paper UI flow: Welcome screen, interest tags, "For You" recommendations, review submissions, and profile.</div>
 </section>
 
-<!-- BRAINSTORMING -->
-<article class="reading">
-  <h2>Brainstorming</h2>
-  <p>We conducted research on existing solutions related to our project topic, and each team member brainstormed 15 possible design ideas to address the persona's goals.</p>
+<!-- ================ 06. USER TASKS & STORYBOARDING ================ -->
+<article class="reading" id="storyboards">
+  <h2>06. Defining User Tasks &amp; Storyboarding</h2>
+  <p>To ground our prototype in realistic usage contexts, we defined <strong>four core user tasks</strong> rooted in Jess's goals. We illustrated a storyboard for each task to evaluate how these interactions unfold in daily student life.</p>
+</article>
+
+<!-- TASK 01 -->
+<div class="task-card">
+  <div class="task-head">
+    <div class="task-title-wrap">
+      <span class="task-num">01</span>
+      <h3>Find a Unique Experience in Nature</h3>
+    </div>
+    <span class="task-tag">Persona Goal: Gain Unique College Experiences</span>
+  </div>
+  <div class="task-body">
+    <div class="task-media">
+      <img src="uploads/Ithaca%20Hunt%20App/Untitled.jpeg" alt="Storyboard 1: Find a unique experience in nature">
+    </div>
+    <p class="task-notes"><strong>Scenario:</strong> Jess wants to explore Ithaca's natural scenery over the weekend. She browses nature-tagged activities on Ithaca Hunt and finds an organized trail walk at Cascadilla Gorge.</p>
+  </div>
+</div>
+
+<!-- TASK 02 -->
+<div class="task-card">
+  <div class="task-head">
+    <div class="task-title-wrap">
+      <span class="task-num">02</span>
+      <h3>Add a Recommended Event to Calendar</h3>
+    </div>
+    <span class="task-tag">Persona Goal: Stay on Top of Academics</span>
+  </div>
+  <div class="task-body">
+    <div class="task-media">
+      <img src="uploads/Ithaca%20Hunt%20App/Untitled%201.jpeg" alt="Storyboard 2: Add recommended event to calendar">
+    </div>
+    <p class="task-notes"><strong>Scenario:</strong> Jess selects a recommended outdoor trail event and syncs it directly to her personal academic calendar to ensure it does not overlap with study hours.</p>
+  </div>
+</div>
+
+<!-- TASK 03 -->
+<div class="task-card">
+  <div class="task-head">
+    <div class="task-title-wrap">
+      <span class="task-num">03</span>
+      <h3>Message Someone Interested in Similar Events</h3>
+    </div>
+    <span class="task-tag">Persona Goal: Make Friends with Similar Interests</span>
+  </div>
+  <div class="task-body">
+    <div class="figma-embed" style="aspect-ratio: 16 / 9; max-width: 680px; margin: 0 auto;">
+      <iframe src="https://embed.figma.com/file/KvG5HNEAUszbMOxW8kYmAT?kind=file&amp;node-id=274%3A5880&amp;embed-host=share" allowfullscreen=""></iframe>
+    </div>
+    <div class="caption" style="margin-top: 10px; text-align: left;">
+      <p class="task-notes"><strong>Scenario:</strong> Jess navigates to the event chat channel, connects with classmates interested in attending the same concert, and plans a group commute. <a href="https://www.figma.com/file/KvG5HNEAUszbMOxW8kYmAT?kind=file&amp;node-id=274%3A5880" target="_blank" rel="noopener">Open Task 03 wireframe in Figma ↗</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- TASK 04 -->
+<div class="task-card">
+  <div class="task-head">
+    <div class="task-title-wrap">
+      <span class="task-num">04</span>
+      <h3>Find a Bus Route to a Recommended Event</h3>
+    </div>
+    <span class="task-tag">Persona Goal: Seamless Transit &amp; Navigation</span>
+  </div>
+  <div class="task-body">
+    <div class="task-media">
+      <img src="uploads/Ithaca%20Hunt%20App/48FF0506-11DB-4921-9E54-4AC271E56735.jpeg" alt="Storyboard 4: Find a bus route to a recommended event">
+    </div>
+    <p class="task-notes"><strong>Scenario:</strong> Jess checks the built-in transit tab to find real-time TCAT bus routes, departure schedules, and walking directions from her dorm to the downtown event.</p>
+  </div>
+</div>
+
+<!-- ================ 07. PROTOTYPE DRAFTS & TESTING ================ -->
+<article class="reading" id="prototypes">
+  <h2>07. Prototype Drafts &amp; Usability Iterations</h2>
+  <p>We drafted our wireframe flows in Figma and conducted moderated usability testing sessions across realistic task scenarios to refine layout hierarchy, navigation labels, and review incentives.</p>
 </article>
 
 <section class="band">
   <div class="single wide">
-    <div class="media wide"><img src="uploads/Ithaca%20Hunt%20App/final_design_sketch_part_1.png" alt="Brainstorming sketches" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
+    <div class="media wide">
+      <img src="uploads/Ithaca%20Hunt%20App/Screen_Shot_2022-10-28_at_12.33.53_AM.png" alt="Prototype Draft 2 Figma wireframes">
+    </div>
   </div>
-  <div class="caption">Fifteen ideas per teammate, sketched together.</div>
+  <div class="caption">Draft #2 Figma wireframe flows incorporating user testing feedback — <a href="https://www.figma.com/file/KvG5HNEAUszbMOxW8kYmAT?kind=file&amp;node-id=274%3A5880" target="_blank" rel="noopener">Open in Figma ↗</a></div>
 </section>
 
-<!-- USER INTERFACES -->
-<article class="reading">
-  <h2>User Interfaces</h2>
-  <p>We discussed our design ideas to have a general idea of what our user interface might look like and drew a hand-drawn sketch of it.</p>
-</article>
-
-<section class="band">
-  <div class="single wide">
-    <div class="media wide"><img src="uploads/Ithaca%20Hunt%20App/final_design_sketch_part_2.png" alt="Hand-drawn UI sketch" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
-  </div>
-  <div class="caption">First-pass UI — welcome, interests, recommendations, event detail, review, and profile.</div>
-</section>
-
-<!-- DEFINING USER TASKS & STORYBOARDING -->
-<article class="reading">
-  <h2>Defining User Tasks and Storyboarding</h2>
-  <p>We defined four tasks for usability testing based on the persona's goals. We also made a storyboard corresponding to each task to test how these tasks could look in reality.</p>
-</article>
-
-<div class="task">
-  <div class="label"><span class="n">01</span>Find a unique experience in nature <span style="color:var(--ink-3)">— Persona's Goal: Gain unique experiences in college</span></div>
-  <div class="band"><div class="single wide"><div class="media storyboard"><img src="uploads/Ithaca%20Hunt%20App/Screen_Shot_2022-10-28_at_12.41.00_AM.png" alt="Storyboard 1 — unique experience in nature" style="width:100%;height:100%;object-fit:contain;display:block;"></div></div></div>
-</div>
-
-<div class="task">
-  <div class="label"><span class="n">02</span>Add a recommended event to their calendar <span style="color:var(--ink-3)">— Persona's Goal: Staying on top of her academics</span></div>
-  <div class="band"><div class="single wide"><div class="media storyboard"><img src="uploads/Ithaca%20Hunt%20App/Untitled.jpeg" alt="Storyboard 2 — add to calendar" style="width:100%;height:100%;object-fit:contain;display:block;"></div></div></div>
-</div>
-
-<div class="task">
-  <div class="label"><span class="n">03</span>Message someone who is interested in similar events <span style="color:var(--ink-3)">— Goal: Make more friends with similar interests</span></div>
-  <div class="band"><div class="single wide"><div class="media storyboard"><div style="width:100%;height:100%;min-height:200px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#888;font-size:13px;">Drop Storyboard 3 — messaging</div></div></div></div>
-</div>
-
-<div class="task">
-  <div class="label"><span class="n">04</span>Find a bus route to a recommended event <span style="color:var(--ink-3)">— Persona's Goal: Navigate around Ithaca</span></div>
-  <div class="band"><div class="single wide"><div class="media storyboard"><img src="uploads/Ithaca%20Hunt%20App/48FF0506-11DB-4921-9E54-4AC271E56735.jpeg" alt="Storyboard 4 — bus route" style="width:100%;height:100%;object-fit:contain;display:block;"></div></div></div>
-</div>
-
-<!-- PROTOTYPE DRAFT -->
-<article class="reading">
-  <h2>Prototype Draft</h2>
-  <p>We drafted our prototype using Figma and conducted user testing sessions to work towards the final prototype.</p>
-</article>
-
-<section class="band">
-  <div class="single wide">
-    <div class="media wide"><img src="uploads/Ithaca%20Hunt%20App/Screen_Shot_2022-10-28_at_12.33.53_AM.png" alt="Prototype draft — Figma wireframes" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
-  </div>
-  <div class="caption">Draft #2 (after feedback) — <a style="border-bottom:1px solid var(--rose);color:var(--rose)" href="https://www.figma.com/file/KvG5HNEAUszbMOxW8kYmAT?kind=file&amp;node-id=274%3A5880" target="_blank" rel="noopener">open in Figma ↗</a></div>
-</section>
-
-<!-- FINAL PROTOTYPE (grid of 6 screens with captions) -->
-<article class="reading">
-  <h2>Final Prototype</h2>
+<!-- ================ 08. FINAL PROTOTYPE SHOWCASE ================ -->
+<article class="reading" id="final-prototype">
+  <h2>08. Final High-Fidelity Prototype</h2>
+  <p>The final interactive prototype brings together personalized interest matching, schedule filtering, community-generated reviews, gamified incentives, student profile management, and direct messaging.</p>
 </article>
 
 <div class="final-grid">
+  <!-- Screen 1 -->
   <div class="final-cell">
-    <div class="media"><img src="uploads/Ithaca%20Hunt%20App/Untitled%201.jpeg" alt="Select Your Interests" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-    <div class="cap">A user can select as many interests as they want.</div>
+    <div class="media">
+      <img src="uploads/Ithaca%20Hunt%20App/select_your_interests.webp" alt="Select Your Interests screen">
+    </div>
+    <div class="screen-title">01 · Onboarding</div>
+    <p class="cap"><strong>Select Your Interests:</strong> Users can select any number of interest tags to bootstrap their recommendation algorithm.</p>
   </div>
+
+  <!-- Screen 2 -->
   <div class="final-cell">
-    <div class="media"><img src="./5fb3c425-8716-477b-a81c-3817f8dd6f16-msr1d4d9-44pf.jpeg" alt="For You" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-    <div class="cap">This page shows the user event recommendations based on the user's interests, weekly academic schedule, and grade level.</div>
+    <div class="media">
+      <img src="./5fb3c425-8716-477b-a81c-3817f8dd6f16-msr1d4d9-44pf.jpeg" alt="For You recommendations feed screen">
+    </div>
+    <div class="screen-title">02 · Smart Feed</div>
+    <p class="cap"><strong>For You Feed:</strong> Dynamically serves personalized event recommendations tailored to academic schedules and interests.</p>
   </div>
+
+  <!-- Screen 3 -->
   <div class="final-cell">
-    <div class="media"><img src="uploads/Ithaca%20Hunt%20App/14EED6D9-AD91-4254-8216-D9F990B15DCA.jpeg" alt="Reviews" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-    <div class="cap">The user can read the most helpful reviews left by past attendees of the events.</div>
+    <div class="media">
+      <img src="uploads/Ithaca%20Hunt%20App/14EED6D9-AD91-4254-8216-D9F990B15DCA.jpeg" alt="Event Reviews screen">
+    </div>
+    <div class="screen-title">03 · Peer Insights</div>
+    <p class="cap"><strong>Event Reviews:</strong> Attendees read authenticated peer reviews to gauge event vibe, attendance, and safety.</p>
   </div>
+
+  <!-- Screen 4 -->
   <div class="final-cell">
-    <div class="media"><img src="uploads/Ithaca%20Hunt%20App/302B5894-CE06-4E8F-958B-CA4F7B368A7F.jpeg" alt="You submitted your review" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-    <div class="cap">The user earns points and badges by writing reviews for the events they attended.</div>
+    <div class="media">
+      <img src="uploads/Ithaca%20Hunt%20App/302B5894-CE06-4E8F-958B-CA4F7B368A7F.jpeg" alt="Review Submission confirmation screen">
+    </div>
+    <div class="screen-title">04 · Gamification</div>
+    <p class="cap"><strong>Review &amp; Rewards:</strong> Users earn points, level up badges, and unlock local discounts by sharing event reviews.</p>
   </div>
+
+  <!-- Screen 5 -->
   <div class="final-cell">
-    <div class="media"><img src="uploads/Ithaca%20Hunt%20App/2AE166A1-7546-44B0-ADC1-DBCD06728320.jpeg" alt="Profile — Jess" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-    <div class="cap">The user can view their profile with features such as their achievements, interested events, interests, and friends.</div>
+    <div class="media">
+      <img src="uploads/Ithaca%20Hunt%20App/2AE166A1-7546-44B0-ADC1-DBCD06728320.jpeg" alt="Student Profile screen">
+    </div>
+    <div class="screen-title">05 · Profile</div>
+    <p class="cap"><strong>Profile Dashboard:</strong> View unlocked badges, saved events, active interest tags, and connected friends.</p>
   </div>
+
+  <!-- Screen 6 -->
   <div class="final-cell">
-    <div class="media"><img src="uploads/Ithaca%20Hunt%20App/5FB3C425-8716-477B-A81C-3817F8DD6F16.jpeg" alt="My Chats" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-    <div class="cap">The user can view their chat history.</div>
+    <div class="media">
+      <img src="uploads/Ithaca%20Hunt%20App/5FB3C425-8716-477B-A81C-3817F8DD6F16.jpeg" alt="My Chats messaging screen">
+    </div>
+    <div class="screen-title">06 · Social Chats</div>
+    <p class="cap"><strong>Direct &amp; Group Chats:</strong> Coordinate meetups and travel together with peers attending the same activities.</p>
   </div>
 </div>
 
-<!-- REFLECTION -->
-<article class="reading">
-  <h2>Reflection</h2>
-  <p>Over the course of this semester, I learned greatly about the importance of being <strong>passionate</strong> and <strong>committed</strong> to designing a solution for our target user base. We became attached to the user problem of struggling to adjust to a new environment because all my team members and I can recall the challenges we faced as first-year students and transfer students. By getting feedback from users throughout the design process, we realized that this problem resonates with current first-year students and that they seek to immerse themselves more outside the campus. We constantly communicated and scheduled consistent meetings to design the prototype. We did multiple drafts leading up to the final prototype so that feedback from our users could be incorporated as much as possible. It was a rewarding experience to work together with each member who made a meaningful impact on the project.</p>
-  <p>If I had more time to work on this project, I would like to have expanded the events shown on the "For You" page by showing recommended events based on past events the users have attended. I would also like to explore a feature where users can create events or activities and invite people. I think this feature can allow users to feel more at home if they plan an event or activity that resembles what they usually do at home, such as ice skating or museum hopping.</p>
+<!-- ================ 09. INTERACTIVE VIDEO WALKTHROUGH ================ -->
+<section class="video-section" id="video-demo">
+  <div class="video-header">
+    <div class="video-title">
+      <div class="kicker">Interactive Video Demo</div>
+      <h2>Final Prototype Walkthrough</h2>
+      <p>Watch the complete interactive video demonstration showing Ithaca Hunt in action.</p>
+    </div>
+    <a class="video-btn" href="https://www.youtube.com/watch?v=gy902NGWAQA" target="_blank" rel="noopener">
+      Watch on YouTube
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+
+  <div class="video-frame">
+    <iframe src="https://www.youtube.com/embed/gy902NGWAQA" title="Ithaca Hunt App — Final Prototype Walkthrough" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+  </div>
+</section>
+
+<!-- ================ 10. REFLECTION & NEXT STEPS ================ -->
+<article class="reading" id="reflection">
+  <h2>10. Reflection &amp; Future Vision</h2>
+  <p>Over the course of this semester, I learned the paramount importance of being <strong>deeply passionate</strong> and <strong>committed</strong> to designing for our target user base. Our team resonated strongly with the challenge of adjusting to a new environment because each of us could recall the hurdles we experienced as first-year and transfer students.</p>
+  <p>By engaging users continuously throughout the iterative design lifecycle, we validated that this problem is deeply felt by new students eager to explore outside campus. Constant communication, structured team check-ins, and multiple wireframe iterations ensured that direct user feedback directly shaped the final experience.</p>
+
+  <h3>Opportunities for Future Expansion</h3>
+  <ul>
+    <li><strong>Adaptive Recommendation Engine:</strong> Expand the "For You" feed by training recommendation models on past event attendance history and friend graph interests.</li>
+    <li><strong>Student-Created Community Events:</strong> Allow verified students to create grassroots social gatherings (e.g. group ice skating, museum hops, study cafe crawls) to help peers feel at home in Ithaca.</li>
+    <li><strong>Live TCAT Transit Tracking:</strong> Integrate live GPS bus tracking directly within the event detail view for turn-by-turn departure alerts.</li>
+  </ul>
 </article>
 
 <div class="back-link">
-  <a href="Portfolio.dc.html#work">← Back to all projects</a>
+  <a href="index.html#work">← Back to all projects</a>
 </div>
 
+<!-- ================ NEXT PROJECT STRIP ================ -->
 <section class="next-project">
-  <div class="side">Continue reading</div>
-  <a class="link" href="Case-DoSomething.dc.html">
+  <div class="side">Next Case Study</div>
+  <a class="link" href="Case-LessThanThree.dc.html">
     <div>
-      <div class="no">Next · Case Study 02</div>
-      <div class="title">DoSomething.org</div>
+      <div class="no">Case Study 03</div>
+      <div class="title">Less Than Three A Cappella</div>
     </div>
     <span class="arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10m0 0L9.5 4.5M14 9l-4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
   </a>
 </section>
 
+<!-- ================ FOOTER ================ -->
 <footer class="foot-strip">
   <div>© 2026 Rica Craig — Design Engineer &amp; Product Strategist</div>
   <div>Made with <span class="heart">✿</span> in New York</div>
 </footer>
+
 </body>
 </html>
